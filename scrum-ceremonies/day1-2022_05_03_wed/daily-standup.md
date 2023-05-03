@@ -11,4 +11,4 @@ Inte fast med något just nu.
 Today-I-Learned hur man kan sätta upp ett SCRUMboard i github!
 
 
-<img src="projekt/frontend/public/printscreens/ivar_230503.png" width="500">
+<img width="500" alt="ivar_230503" src="https://user-images.githubusercontent.com/113125376/235942554-3546dc11-3a9b-4570-be51-868f652f1d65.png">
