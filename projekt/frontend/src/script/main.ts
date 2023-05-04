@@ -13,8 +13,15 @@ export function checkLogin() {
 function printHTML() {
   const app = document.querySelector("#app") as HTMLDivElement;
   if (app != undefined) {
-    app.innerHTML = `<h1>INLOGGAD!!</h1>`;
+    app.innerHTML = `
+    <h1>INLOGGAD!!</h1>
+    <button id="logoutBtn">Logga ut</button>`;
   }
+  const logoutBtn = document.querySelector("#logoutBtn");
+  logoutBtn?.addEventListener("click", () => {
+    localStorage.removeItem("user");
+    checkLogin();
+  })
 }
 
 checkLogin();
