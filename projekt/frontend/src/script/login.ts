@@ -98,7 +98,7 @@ function createUser(e: Event) {
         const message = document.querySelector('#createMessage') as HTMLDivElement;
         message.innerHTML = `User ${data.name} created!`;
       })
-      .catch((err) => {
+      .catch(() => {
         const message = document.querySelector('#createMessage') as HTMLDivElement;
         message.innerHTML = 'Name is already taken.';
       });
