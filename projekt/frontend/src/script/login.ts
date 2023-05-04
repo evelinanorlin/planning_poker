@@ -5,6 +5,7 @@ export function printLogin() {
   const app = document.querySelector('#app');
   if (app != undefined) {
     app.innerHTML = /*html*/`
+    <h1>Ivar's Planeringspoker</h1>
     <div id="loginContainer">
     <form id="loginUser">
       <h4>Login:</h4>
@@ -71,7 +72,6 @@ function loginUser(e: Event) {
 }
   
 function createUser(e: Event) {
-  const CLOUD_URL = 'https://sea-lion-app-cr49a.ondigitalocean.app';
   e.preventDefault();
 
   const name = (document.querySelector('#createUsername') as HTMLInputElement).value;
@@ -80,7 +80,7 @@ function createUser(e: Event) {
   if (name && password) {
     const user = { name, password };
 
-    fetch(CLOUD_URL + '/users/add', {
+    fetch(BASE_URL + '/users/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/JSON',
