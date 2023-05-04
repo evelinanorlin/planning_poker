@@ -8,31 +8,32 @@ export function renderHeader() {
     const title = document.createElement('h1') as HTMLElement;
     title.textContent = 'Ivars PlaneringsPoker';
 
-    const button = document.createElement('button') as HTMLButtonElement;
+    const logOutBtn = document.createElement('button') as HTMLButtonElement;
 
     const user = JSON.parse(localStorage.getItem('user') as string);
     
     if (user) {
       if (user.admin) {
-      title.innerHTML = `Välkommen ${user.name},<br> till Ivars Planeringspoker! Inloggad som admin.`;
+      title.innerHTML = `Välkommen <span class="user-name">${user.name}</span>,<br> till Ivars Planeringspoker!<br> <span class="user-admin">Inloggad som admin.</span>`;
       } else {
         title.innerHTML = `Välkommen <span class="user-name">${user.name}</span> till Ivars Planeringspoker!`;
         }
       
-        button.innerText = 'Logga Ut';
+        logOutBtn.innerText = 'Logga Ut';
 
-        button.addEventListener('click', () => {
+        logOutBtn.addEventListener('click', () => {
           localStorage.removeItem("user");
           headerElement.innerHTML = '';
           checkLogin();
           renderHeader();
         });
 
-      headerElement.appendChild(button);
+      headerElement.appendChild(logOutBtn);
     } 
 
     headerElement.prepend(title);
   }
 }
+
 
  
