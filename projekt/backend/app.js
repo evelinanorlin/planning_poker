@@ -43,4 +43,14 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
+
+io.on('connection', (_socket) => {
+  console.log('user connected');
+
+  io.on('disconnected', () => {
+    console.log('user disconnected');
+  });
+});
+
+
 module.exports = { app: app, server: server };

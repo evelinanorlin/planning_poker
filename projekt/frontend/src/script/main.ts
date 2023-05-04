@@ -4,6 +4,10 @@ import '../styles/style.scss';
 import { io } from 'socket.io-client';
 const socket = io("http://localhost:3000");
 
+socket.on('connect', () => {
+  console.log('connected')
+})
+
 import { renderHeader } from './header';
 import { printLogin } from './login';
 import { renderAdmin } from './adminView'
