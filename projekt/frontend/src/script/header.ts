@@ -14,9 +14,9 @@ export function renderHeader() {
     
     if (user) {
       if (user.admin) {
-      title.innerHTML = `Välkommen ${user.name}, till Ivars Planeringspoker! Inloggad som admin.`;
+      title.innerHTML = `Välkommen ${user.name},<br> till Ivars Planeringspoker! Inloggad som admin.`;
       } else {
-        title.innerHTML = `Välkommen <span class="user-name">${user.name}</span>, till Ivars Planeringspoker!`;
+        title.innerHTML = `Välkommen <span class="user-name">${user.name}</span> till Ivars Planeringspoker!`;
         }
       
         button.innerText = 'Logga Ut';
