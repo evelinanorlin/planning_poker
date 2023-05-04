@@ -1,4 +1,4 @@
 import '../styles/style.scss'
 import { renderAdmin } from './adminView'
-
-renderAdmin();
+const tasksArr: any = [];
+renderAdmin(tasksArr);
