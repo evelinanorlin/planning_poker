@@ -16,8 +16,8 @@ app.innerHTML = `
   <footer id='footer' class='footer' </footer>`;
 
 
-// const tasksArr: any = [];
-// renderAdmin(tasksArr);
+const tasksArr: any = [];
+renderAdmin(tasksArr);
 
 export function checkLogin() {
   if (localStorage.getItem("user")) {
