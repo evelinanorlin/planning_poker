@@ -57,7 +57,7 @@ router.post('/login', async (req, res, next) => {
       return res.status(400).json({ msg: 'Incorrect credentials' });
     }
 
-    const sendUser = { name: user.name, id: user._id };
+    const sendUser = { name: user.name, id: user._id, admin: user.admin };
 
     res.status(200).json(sendUser);
   } catch (err) {
