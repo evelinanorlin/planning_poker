@@ -6,6 +6,7 @@ import '/src/styles/_header.scss'
 
 import { renderHeader } from './header';
 import { printLogin } from './login';
+import { renderAdmin } from './adminView'
 import { printHTML } from './loggedIn';
 
 const app = document.querySelector('#app') as HTMLElement;
@@ -14,6 +15,9 @@ app.innerHTML = `
   <main class='main' id='main'></main>
   <footer id='footer' class='footer' </footer>`;
 
+
+// const tasksArr: any = [];
+// renderAdmin(tasksArr);
 
 export function checkLogin() {
   if (localStorage.getItem("user")) {
