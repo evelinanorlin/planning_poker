@@ -1,6 +1,7 @@
 
+const tasksArr: any = [];
+
 export function renderAdmin(){
-  const tasksArr: any = [];
   const adminContainer: HTMLElement = document.getElementById('adminContainer') as HTMLElement;
   adminContainer.innerHTML = `
   <h2>Vad ska vi rösta om idag?</h2>
@@ -43,7 +44,8 @@ function rendertasks(arr: any){
     task.addEventListener('click', (e: Event) => {
       if (e.target instanceof HTMLElement) {
         const chosenTask: string = e.target.innerHTML;
-        console.log(chosenTask);
+        arr = arr.filter((task: string) => task !== chosenTask);
+        rendertasks(arr);
       }
     })
   })
