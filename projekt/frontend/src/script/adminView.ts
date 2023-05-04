@@ -40,8 +40,11 @@ function rendertasks(arr: any){
   const allTasks = document.querySelectorAll('.task')
 
   allTasks.forEach((task) => {
-    task.addEventListener('click', (e) => {
-      console.log(e.target)
+    task.addEventListener('click', (e: Event) => {
+      if (e.target instanceof HTMLElement) {
+        const chosenTask: string = e.target.innerHTML;
+        console.log(chosenTask);
+      }
     })
   })
 }
