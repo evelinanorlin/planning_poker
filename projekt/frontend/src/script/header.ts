@@ -1,48 +1,36 @@
+import { checkLogin } from "./main";
 
 export function renderHeader() {
-    const app = document.querySelector('#app');
-    console.log('connected')
-
-    const header = document.createElement('header');
-    header.setAttribute('class', 'header');
-
-    const title = document.createElement('h1');
+  const headerElement = document.querySelector('#header') as HTMLElement;
+  headerElement.innerHTML = '';
+  
+  if (headerElement != undefined) {
+    const title = document.createElement('h1') as HTMLElement;
     title.textContent = 'Ivars PlaneringsPoker';
 
-    const button = document.createElement('button');
+    const button = document.createElement('button') as HTMLButtonElement;
 
-    if (sessionStorage.getItem('isLoggedIn')) {
-        button.textContent = 'Logga Ut';
-    } else {
-        button.textContent = 'Logga In';
-    }
-
-    button.addEventListener('click', () => {
-        console.log('Button clicked!');
-
-        if (sessionStorage.getItem('isLoggedIn')) {
-            sessionStorage.removeItem('isLoggedIn');
-            button.textContent = 'Logga IN';
-            title.textContent = 'Ivars PlaneringsPoker';
-
-        } else {
-            sessionStorage.setItem('isLoggedIn', 'true');
-            button.textContent = 'Logga Ut';
-            title.textContent = 'Välkommen {{user}}';
-            title.textContent += ' - inloggad som admin';
+    const user = JSON.parse(localStorage.getItem('user') as string);
+    
+    if (user) {
+      if (user.admin) {
+      title.textContent = `Welcome ${user.name}, inlogged as admin`;
+      } else {
+        title.textContent = `Welcome ${user.name}`;
         }
+      
+        button.innerText = 'Logga Ut';
 
-        // const isAdmin = true;
-        // hämta userObject med isAdmin = true från back?
-        // if(isAdmin ) {
-        //     title.textContent += ' - inloggad som admin';
-        // }
+        button.addEventListener('click', () => {
+          localStorage.removeItem("user");
+          headerElement.innerHTML = '';
+          checkLogin();
+          renderHeader();
+        });
 
-      });
-
-    header.appendChild(title);
-    header.appendChild(button);
-
-    app?.appendChild(header);
+      headerElement.appendChild(button);
+    } 
+    
+    headerElement.prepend(title);
+  }
 }
-
