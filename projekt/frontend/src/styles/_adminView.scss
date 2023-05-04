@@ -1,0 +1,30 @@
+.adminContainer{
+  width: 80%;
+  margin: 0 auto;
+  button{
+    display: block;
+    border: 1px solid black;
+  }
+  button, input{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    height: 35px;
+    margin-top: 16px;
+  }
+
+  .tasks{
+    background: gray;
+    height: 300px;
+    overflow-y: scroll;
+
+    .tasksList{
+      li{
+        cursor: pointer;
+        &:hover{
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
