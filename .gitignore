@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 # dotenv environment variables file
-*.env
+./projekt/backend/.env
