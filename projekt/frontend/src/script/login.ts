@@ -8,22 +8,22 @@ export function printLogin() {
     <h1>Ivar's Planeringspoker</h1>
     <div id="loginContainer">
     <form id="loginUser">
-      <h4>Login:</h4>
+      <h4>Logga in:</h4>
       <div id="loginMessage"></div>
-      <input id="loginUsername" type="text" placeholder="Username">
+      <input id="loginUsername" type="text" placeholder="Användarnamn">
       <br>
-      <input id="loginPassword" type="password" placeholder="Password">
+      <input id="loginPassword" type="password" placeholder="Lösenord">
       <br>
-      <button>Login</button>
+      <button>Logga in</button>
     </form>
     <form id="createUser">
-      <h4>Create user:</h4>
+      <h4>Skapa användare:</h4>
       <div id="createMessage"></div>
-      <input id="createUsername" type="text" placeholder="Username">
+      <input id="createUsername" type="text" placeholder="Användarnamn">
       <br>
-      <input id="createPassword" type="password" placeholder="Password">
+      <input id="createPassword" type="password" placeholder="Lösenord">
       <br>
-      <button>Create</button>
+      <button>Skapa</button>
     </form>
     </div> 
   `;
