@@ -1,6 +1,9 @@
 import '../styles/style.scss'
-
+import { renderAdmin } from './adminView'
 import { printLogin } from './login';
+
+const tasksArr: any = [];
+renderAdmin(tasksArr);
 
 export function checkLogin() {
   if (localStorage.getItem("user")) {
