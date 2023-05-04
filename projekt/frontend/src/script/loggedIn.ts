@@ -1,5 +1,3 @@
-import { checkLogin } from "./main";
-import { renderHeader } from "./header";
 
 
 export function printHTML() {

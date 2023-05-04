@@ -14,12 +14,18 @@ header {
         margin: 0;
         font-weight: 100;
         font-style: italic;
+        font-size: 2rem;
     }
 
     button {
         width: 175px;
         text-transform: uppercase;
+    }
 
-
+    .user-name {
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 1.5rem;
+        font-style: normal;
     }
 }

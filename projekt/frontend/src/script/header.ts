@@ -14,9 +14,9 @@ export function renderHeader() {
     
     if (user) {
       if (user.admin) {
-      title.textContent = `Welcome ${user.name}, inlogged as admin`;
+      title.innerHTML = `Välkommen ${user.name}, till Ivars Planeringspoker! Inloggad som admin.`;
       } else {
-        title.textContent = `Welcome ${user.name}`;
+        title.innerHTML = `Välkommen <span class="user-name">${user.name}</span>, till Ivars Planeringspoker!`;
         }
       
         button.innerText = 'Logga Ut';
@@ -30,7 +30,9 @@ export function renderHeader() {
 
       headerElement.appendChild(button);
     } 
-    
+
     headerElement.prepend(title);
   }
 }
+
+ 
