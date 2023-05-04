@@ -1,8 +1,8 @@
 console.log("were connected");
 import '../styles/style.scss';
 
-// import { io } from 'https://cdn.socket.io/4.3.2/socket.io.esm.min.js';
-// const socket = io("http://localhost:3001");
+import { io } from 'socket.io-client';
+const socket = io("http://localhost:3000");
 
 import { renderHeader } from './header';
 import { printLogin } from './login';
