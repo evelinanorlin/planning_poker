@@ -29,8 +29,14 @@ export function renderHeader() {
             sessionStorage.setItem('isLoggedIn', 'true');
             button.textContent = 'Logga Ut';
             title.textContent = 'Välkommen {{user}}';
+            title.textContent += ' - inloggad som admin';
         }
 
+        // const isAdmin = true;
+        // hämta userObject med isAdmin = true från back?
+        // if(isAdmin ) {
+        //     title.textContent += ' - inloggad som admin';
+        // }
 
       });
 
