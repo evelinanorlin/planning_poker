@@ -45,9 +45,29 @@ app.use("/users", usersRouter);
 
 let tasksArr = [];
 
+const activeUsers = [];
+
 io.on('connection', (socket) => {
-  const connectionDate = new Date().toLocaleString(); 
-  console.log(`user ${socket.id} connected at ${connectionDate}`);
+  console.log('socket.on back connected')
+  // const connectionDate = new Date().toLocaleString(); 
+  // console.log(`user ${socket.id} connected at ${connectionDate}`);
+
+  socket.on('userLoggedIn', (user) => {
+    console.log(`User ${user.id} with name ${user.name} logged in`);
+    activeUsers.push(user);
+    console.log(activeUsers);
+
+    io.emit('userJoined', user.name, activeUsers);
+  });
+
+  socket.on('userLoggedOut', (userId) => {
+    console.log(`User ${userId} logged out`);
+    const index = activeUsers.findIndex((user) => user.id === userId);
+    if (index !== -1) {
+      activeUsers.splice(index, 1);
+    }
+    console.log(activeUsers)
+  });
 
   socket.on('addTask', (arg) => {
     tasksArr.push(arg);
@@ -60,7 +80,7 @@ io.on('connection', (socket) => {
   })
 
   io.on('disconnected', () => {
-    console.log('user disconnected');
+    console.log('user ${socket.id} disconnected');
   });
 });
 

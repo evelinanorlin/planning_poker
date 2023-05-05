@@ -1,5 +1,6 @@
 import { renderHeader } from './header';
 import { checkLogin } from './main';
+import { userToSocket } from './sockets';
 
 const BASE_URL = 'http://localhost:3000';
 
@@ -33,7 +34,6 @@ export function printLogin() {
     </div> 
   `;
   }
-  
 
   const loginUserForm = document.querySelector('#loginUser');
   loginUserForm?.addEventListener('submit', loginUser);
@@ -69,6 +69,7 @@ function loginUser(e: Event) {
         localStorage.setItem('user', JSON.stringify(data));
         renderHeader();
         checkLogin();
+        userToSocket(data);
       })
       .catch((err) => {
         const message = document.querySelector('#loginMessage') as HTMLDivElement;
@@ -76,7 +77,7 @@ function loginUser(e: Event) {
       });
   }
 }
-  
+
 function createUser(e: Event) {
   e.preventDefault();
 
