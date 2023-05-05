@@ -8,14 +8,11 @@ const usersConnected = [
   const numbers = [0, 1, 2, 3, 5, 8, '?'];
   const issues = ['Issue1', 'Issue2', 'Issue3'];
   const currentIssue = issues[2];
-  const pastIssues = ['PastIssue1', 'PastIssue2', 'PastIssue3'];
+  //const pastIssues = ['PastIssue1', 'PastIssue2', 'PastIssue3'];
   export function printUser() {
-    //pastIssues: [];
-    socket.on('task', (arg) => {
-      console.log(arg)
-    })
     const main: HTMLElement = document.querySelector('#main') as HTMLElement;
     main.innerHTML = `
+    <section id="adminContainer" class="adminContainer"></section>
       <div id="votingContainer">
         <h1>Aktuell uppgift att rösta om: ${currentIssue}</h1>
         <div id="issuesContainer">
@@ -26,8 +23,7 @@ const usersConnected = [
         </div>
         <div id="nextIssuesDiv">
           <h1>Kommande issues:</h1>
-          <ul>
-            ${pastIssues.map(issue => `<li>${issue}</li>`).join('')}
+          <ul id="upcomingTasks">
           </ul>
         </div>
         <div id="prevIssuesDiv">
@@ -39,7 +35,7 @@ const usersConnected = [
         <h1>Välj poäng:</h1>
       </div>
     `;
-    const votingContainer = document.querySelector('#votingContainer');
+    const votingContainer: HTMLElement = document.querySelector('#votingContainer') as HTMLElement;
     const numberButtons = numbers.map(number => {
         const button = document.createElement('button');
         button.classList.add('numberButton');
@@ -52,5 +48,18 @@ const usersConnected = [
     numberButtons.forEach(button => {
       votingContainer.appendChild(button);
     });
+  }
+  
+  socket.on('task', (arg: []) => {
+    printTasks(arg)
+  })
+
+  function printTasks(tasks: []){
+    const upcomingTasks: HTMLElement = document.getElementById('upcomingTasks') as HTMLElement;
+    upcomingTasks.innerHTML = '';
+    tasks.map((task: string) => {
+      upcomingTasks.innerHTML += `
+      <li>${task}</li>`;
+    })
   }
   

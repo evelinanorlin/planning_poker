@@ -50,7 +50,7 @@ io.on('connection', (socket) => {
   console.log(`user ${socket.id} connected at ${connectionDate}`);
 
   socket.on('task', (arg) => {
-    tasksArr.push(arg)
+    tasksArr.push(arg);
     io.emit('task', tasksArr);
   })
 

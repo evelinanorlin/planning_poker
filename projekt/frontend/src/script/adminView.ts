@@ -3,41 +3,46 @@ const socket = io("http://localhost:3000");
 
 export function renderAdmin(tasksArr: any){
   const adminContainer: HTMLElement = document.getElementById('adminContainer') as HTMLElement;
-  adminContainer.innerHTML = `
-  <div class="adminFlex">
-    <div class="flexDiv">
-      <h2>Vad ska vi rösta om idag?</h2>
-      <form onsubmit="return false">
-        <label for="task">Lägg till uppgift:</label><br>
-        <input type="text" id="taskInput" name="task"><br>
-        <button id="taskBtn" type="button">Lägg till</button>
-      </form>
-    </div>
-    <div "flexDiv">
-      <h2>Vilken uppgift ska vi rösta om nu?</h2>
-      <div class="tasks">
-        <ul id="tasksList" class="tasksList"></ul>
+  const user = JSON.parse(localStorage.getItem('user') || "");
+
+  if(user.admin == true){
+    adminContainer.innerHTML = `
+    <div class="adminFlex">
+      <div class="flexDiv">
+        <h2>Vad ska vi rösta om idag?</h2>
+        <form onsubmit="return false">
+          <label for="task">Lägg till uppgift:</label><br>
+          <input type="text" id="taskInput" name="task"><br>
+          <button id="taskBtn" type="button">Lägg till</button>
+        </form>
       </div>
-      <button>Avsluta och spara session</button>
+      <div "flexDiv">
+        <h2>Vilken uppgift ska vi rösta om nu?</h2>
+        <div class="tasks">
+          <ul id="tasksList" class="tasksList"></ul>
+        </div>
+        <button>Avsluta och spara session</button>
+      </div>
     </div>
-  </div>
-  `
-  const taskInput: HTMLInputElement = document.getElementById('taskInput') as HTMLInputElement;
+    `
+    const taskInput: HTMLInputElement = document.getElementById('taskInput') as HTMLInputElement;
+  
+    document.getElementById('taskBtn')?.addEventListener('click', () => {
+      if(taskInput.value){
+        const task: string = taskInput.value;
+        tasksArr.push(task)
+        taskInput.value = ``;
+        rendertasks(tasksArr);
 
-  document.getElementById('taskBtn')?.addEventListener('click', () => {
-    if(taskInput.value){
-      const task: string = taskInput.value;
-      tasksArr.push(task)
-      taskInput.value = ``;
-      rendertasks(tasksArr)
-
-      socket.emit('task', task);
-    } else return;
-  })
+        socket.emit('task', task);
+      } else return;
+    })
+  } else{
+    adminContainer.innerHTML = '';
+  }
 }
 
 function rendertasks(arr: any){
-  console.log(arr)
   const tasksList: HTMLElement = document.getElementById('tasksList') as HTMLElement;
 
   tasksList.innerHTML = ``;
@@ -57,7 +62,6 @@ function rendertasks(arr: any){
         arr = arr.filter((task: string) => task !== chosenTask);
 
         renderPoints(arr, chosenTask)
-        //rendertasks(arr);
       }
     })
   })
@@ -87,6 +91,4 @@ function renderPoints(arr: any, chosenTask: string){
       }
     })
   })
-
-
 }
