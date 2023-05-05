@@ -1,10 +1,15 @@
+import { renderHeader } from './header';
 import { checkLogin } from './main';
+
 const BASE_URL = 'http://localhost:3000';
 
 export function printLogin() {
-  const app = document.querySelector('#app');
-  if (app != undefined) {
-    app.innerHTML = /*html*/`
+  // const app = document.querySelector('#app');
+  // if (app != undefined) {
+   // app.innerHTML = /*html*/`
+    const main = document.querySelector('#main');
+    if(main != undefined) {
+    main.innerHTML = /*html*/`
     <h1>Ivar's Planeringspoker</h1>
     <div id="loginContainer">
     <form id="loginUser">
@@ -62,6 +67,7 @@ function loginUser(e: Event) {
       })
       .then((data) => {
         localStorage.setItem('user', JSON.stringify(data));
+        renderHeader();
         checkLogin();
       })
       .catch((err) => {

@@ -1,9 +1,27 @@
-import '../styles/style.scss'
-import { renderAdmin } from './adminView'
-import { printLogin } from './login';
+console.log("were connected");
+import '../styles/style.scss';
 
-// const tasksArr: any = [];
-// renderAdmin(tasksArr);
+import { io } from 'socket.io-client';
+const socket = io("http://localhost:3000");
+
+socket.on('connect', () => {
+  console.log('socket.on connected')
+})
+
+import { renderHeader } from './header';
+import { printLogin } from './login';
+import { renderAdmin } from './adminView'
+import { printHTML } from './loggedIn';
+
+const app = document.querySelector('#app') as HTMLElement;
+app.innerHTML = `
+  <header class='header' id='header'></header>
+  <main class='main' id='main'></main>
+  <footer id='footer' class='footer' </footer>`;
+
+
+const tasksArr: any = [];
+renderAdmin(tasksArr);
 
 export function checkLogin() {
   if (localStorage.getItem("user")) {
@@ -13,29 +31,9 @@ export function checkLogin() {
   }
 }
 
-function printHTML() {
-  const app = document.querySelector("#app") as HTMLDivElement;
-  const adminContainer: HTMLElement = document.getElementById('adminContainer') as HTMLElement;
-
-  if (app != undefined) {
-    app.innerHTML = `
-    <h1>INLOGGAD!!</h1>
-    <button id="logoutBtn">Logga ut</button>`;
-  }
-  const logoutBtn = document.querySelector("#logoutBtn");
-  logoutBtn?.addEventListener("click", () => {
-    localStorage.removeItem("user");
-    checkLogin();
-    adminContainer.innerHTML = "";
-  })
-
-  const user = JSON.parse(localStorage.getItem('user') || "");
-  console.log(user.admin);
-  if(user.admin == true){
-    console.log('runs')
-    const tasksArr: any = [];
-    renderAdmin(tasksArr);
-  }
-}
-
-checkLogin();
+const init = () => {
+  renderHeader();
+  checkLogin();
+};
+  
+init();
