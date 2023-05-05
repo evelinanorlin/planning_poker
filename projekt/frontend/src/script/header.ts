@@ -1,14 +1,15 @@
 import { checkLogin } from "./main";
+import { socket } from './sockets';
 
 export function renderHeader() {
   const headerElement = document.querySelector('#header') as HTMLElement;
   headerElement.innerHTML = '';
   
   if (headerElement != undefined) {
-    const title = document.createElement('h1') as HTMLElement;
+    const title: HTMLHeadingElement = document.createElement('h1');
     title.textContent = 'Ivars PlaneringsPoker';
 
-    const logOutBtn = document.createElement('button') as HTMLButtonElement;
+    const logOutBtn: HTMLButtonElement = document.createElement('button');
 
     const user = JSON.parse(localStorage.getItem('user') as string);
 
@@ -26,6 +27,11 @@ export function renderHeader() {
         logOutBtn.innerText = 'Logga Ut';
 
         logOutBtn.addEventListener('click', () => {
+          const user = JSON.parse(localStorage.getItem('user') as string);
+          if (user) {
+            socket.emit('userLoggedOut', user.id);
+          }
+
           localStorage.removeItem("user");
           headerElement.innerHTML = '';
           //adminContainer.innerHTML = '';
