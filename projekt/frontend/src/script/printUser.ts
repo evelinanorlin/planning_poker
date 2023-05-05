@@ -1,3 +1,6 @@
+import { io } from 'socket.io-client';
+const socket = io("http://localhost:3000");
+
 const usersConnected = [
     { name: 'Sebastian', id: 0 },
     { name: 'Erik', id: 1 }
@@ -5,13 +8,14 @@ const usersConnected = [
   const numbers = [0, 1, 2, 3, 5, 8, '?'];
   const issues = ['Issue1', 'Issue2', 'Issue3'];
   const currentIssue = issues[2];
-  const pastIssues = ['PastIssue1', 'PastIssue2', 'PastIssue3'];
+  //const pastIssues = ['PastIssue1', 'PastIssue2', 'PastIssue3'];
   export function printUser() {
-    const main = document.querySelector('#main');
+    const main: HTMLElement = document.querySelector('#main') as HTMLElement;
     main.innerHTML = `
     <section id="adminContainer" class="adminContainer"></section>
       <div id="votingContainer">
-        <h1>Aktuell uppgift att rösta om: ${currentIssue}</h1>
+        <h1>Aktuell uppgift att rösta om:</h1>
+        <h2 id="currentTask"></h2>
         <div id="issuesContainer">
           <h1>Användare</h1>
           <ul>
@@ -20,8 +24,7 @@ const usersConnected = [
         </div>
         <div id="nextIssuesDiv">
           <h1>Kommande issues:</h1>
-          <ul>
-            ${pastIssues.map(issue => `<li>${issue}</li>`).join('')}
+          <ul id="upcomingTasks">
           </ul>
         </div>
         <div id="prevIssuesDiv">
@@ -33,7 +36,7 @@ const usersConnected = [
         <h1>Välj poäng:</h1>
       </div>
     `;
-    const votingContainer = document.querySelector('#votingContainer');
+    const votingContainer: HTMLElement = document.querySelector('#votingContainer') as HTMLElement;
     const numberButtons = numbers.map(number => {
         const button = document.createElement('button');
         button.classList.add('numberButton');
@@ -46,5 +49,28 @@ const usersConnected = [
     numberButtons.forEach(button => {
       votingContainer.appendChild(button);
     });
+  }
+  
+  socket.on('addTask', (arg: []) => {
+    printTasks(arg)
+  })
+
+  socket.on('voteTask', (arg) => {
+    printTasks(arg.arr);
+    showTask(arg.task);
+  })
+
+  function printTasks(tasks: []){
+    const upcomingTasks: HTMLElement = document.getElementById('upcomingTasks') as HTMLElement;
+    upcomingTasks.innerHTML = '';
+    tasks.map((task: string) => {
+      upcomingTasks.innerHTML += `
+      <li>${task}</li>`;
+    })
+  }
+
+  function showTask(task: string){
+    const currentTask: HTMLElement = document.getElementById('currentTask') as HTMLElement;
+    currentTask.innerHTML = task;
   }
   
