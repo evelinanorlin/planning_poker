@@ -11,6 +11,10 @@ export function renderHeader() {
     const logOutBtn = document.createElement('button') as HTMLButtonElement;
 
     const user = JSON.parse(localStorage.getItem('user') as string);
+
+    //const adminContainer: HTMLElement = document.getElementById('adminContainer') as HTMLElement;
+
+    const main: HTMLElement = document.querySelector('#main') as HTMLElement;
     
     if (user) {
       if (user.admin) {
@@ -24,6 +28,8 @@ export function renderHeader() {
         logOutBtn.addEventListener('click', () => {
           localStorage.removeItem("user");
           headerElement.innerHTML = '';
+          //adminContainer.innerHTML = '';
+          main.innerHTML = '';
           checkLogin();
           renderHeader();
         });

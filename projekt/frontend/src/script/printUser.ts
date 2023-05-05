@@ -9,6 +9,7 @@ const usersConnected = [
   export function printUser() {
     const main = document.querySelector('#main');
     main.innerHTML = `
+    <section id="adminContainer" class="adminContainer"></section>
       <div id="votingContainer">
         <h1>Aktuell uppgift att rösta om: ${currentIssue}</h1>
         <div id="issuesContainer">

@@ -21,12 +21,16 @@ app.innerHTML = `
   <footer id='footer' class='footer' </footer>`;
 
 
-const tasksArr: any = [];
-renderAdmin(tasksArr);
+// const tasksArr: any = [];
+// renderAdmin(tasksArr);
 
 export function checkLogin() {
   if (localStorage.getItem("user")) {
     printUser();
+
+    //OBS ska bytas ut mot array från backend
+    const tasksArr: any = [];
+    renderAdmin(tasksArr);
   } else {
     printLogin();
   }
