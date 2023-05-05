@@ -14,7 +14,8 @@ const usersConnected = [
     main.innerHTML = `
     <section id="adminContainer" class="adminContainer"></section>
       <div id="votingContainer">
-        <h1>Aktuell uppgift att rösta om: ${currentIssue}</h1>
+        <h1>Aktuell uppgift att rösta om:</h1>
+        <h2 id="currentTask"></h2>
         <div id="issuesContainer">
           <h1>Användare</h1>
           <ul>
@@ -50,8 +51,13 @@ const usersConnected = [
     });
   }
   
-  socket.on('task', (arg: []) => {
+  socket.on('addTask', (arg: []) => {
     printTasks(arg)
+  })
+
+  socket.on('voteTask', (arg) => {
+    printTasks(arg.arr);
+    showTask(arg.task);
   })
 
   function printTasks(tasks: []){
@@ -61,5 +67,10 @@ const usersConnected = [
       upcomingTasks.innerHTML += `
       <li>${task}</li>`;
     })
+  }
+
+  function showTask(task: string){
+    const currentTask: HTMLElement = document.getElementById('currentTask') as HTMLElement;
+    currentTask.innerHTML = task;
   }
   

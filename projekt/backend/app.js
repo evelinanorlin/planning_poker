@@ -49,9 +49,14 @@ io.on('connection', (socket) => {
   const connectionDate = new Date().toLocaleString(); 
   console.log(`user ${socket.id} connected at ${connectionDate}`);
 
-  socket.on('task', (arg) => {
+  socket.on('addTask', (arg) => {
     tasksArr.push(arg);
-    io.emit('task', tasksArr);
+    io.emit('addTask', tasksArr);
+  })
+
+  socket.on('voteTask', (arg) => {
+    tasksArr = tasksArr.filter((task) => task !== arg);
+    io.emit('voteTask', {'arr': tasksArr, 'task': arg})
   })
 
   io.on('disconnected', () => {

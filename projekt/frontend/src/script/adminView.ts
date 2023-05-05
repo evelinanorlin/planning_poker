@@ -34,7 +34,7 @@ export function renderAdmin(tasksArr: any){
         taskInput.value = ``;
         rendertasks(tasksArr);
 
-        socket.emit('task', task);
+        socket.emit('addTask', task);
       } else return;
     })
   } else{
@@ -60,8 +60,9 @@ function rendertasks(arr: any){
       if (e.target instanceof HTMLElement) {
         const chosenTask: string = e.target.innerHTML;
         arr = arr.filter((task: string) => task !== chosenTask);
-
         renderPoints(arr, chosenTask)
+        
+        socket.emit('voteTask', chosenTask)
       }
     })
   })
