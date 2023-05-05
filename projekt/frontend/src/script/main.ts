@@ -12,6 +12,7 @@ import { renderHeader } from './header';
 import { printLogin } from './login';
 import { renderAdmin } from './adminView'
 import { printHTML } from './loggedIn';
+import { printUser } from './printUser';
 
 const app = document.querySelector('#app') as HTMLElement;
 app.innerHTML = `
@@ -25,7 +26,7 @@ renderAdmin(tasksArr);
 
 export function checkLogin() {
   if (localStorage.getItem("user")) {
-    printHTML();
+    printUser();
   } else {
     printLogin();
   }
