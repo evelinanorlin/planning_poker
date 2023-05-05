@@ -1,3 +1,5 @@
+import { io } from 'socket.io-client';
+const socket = io("http://localhost:3000");
 
 export function renderAdmin(tasksArr: any){
   const adminContainer: HTMLElement = document.getElementById('adminContainer') as HTMLElement;
@@ -28,6 +30,8 @@ export function renderAdmin(tasksArr: any){
       tasksArr.push(task)
       taskInput.value = ``;
       rendertasks(tasksArr)
+
+      socket.emit('task', task);
     } else return;
   })
 }

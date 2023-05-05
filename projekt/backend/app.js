@@ -43,10 +43,16 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
+let tasksArr = [];
 
 io.on('connection', (socket) => {
   const connectionDate = new Date().toLocaleString(); 
   console.log(`user ${socket.id} connected at ${connectionDate}`);
+
+  socket.on('task', (arg) => {
+    tasksArr.push(arg)
+    io.emit('task', tasksArr);
+  })
 
   io.on('disconnected', () => {
     console.log('user disconnected');
