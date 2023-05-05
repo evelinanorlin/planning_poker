@@ -43,10 +43,21 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
+let tasksArr = [];
 
 io.on('connection', (socket) => {
   const connectionDate = new Date().toLocaleString(); 
   console.log(`user ${socket.id} connected at ${connectionDate}`);
+
+  socket.on('addTask', (arg) => {
+    tasksArr.push(arg);
+    io.emit('addTask', tasksArr);
+  })
+
+  socket.on('voteTask', (arg) => {
+    tasksArr = tasksArr.filter((task) => task !== arg);
+    io.emit('voteTask', {'arr': tasksArr, 'task': arg})
+  })
 
   io.on('disconnected', () => {
     console.log('user disconnected');

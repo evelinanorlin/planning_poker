@@ -1,3 +1,5 @@
+import { io } from 'socket.io-client';
+const socket = io("http://localhost:3000");
 
 export function renderAdmin(tasksArr: any){
   const adminContainer: HTMLElement = document.getElementById('adminContainer') as HTMLElement;
@@ -30,7 +32,9 @@ export function renderAdmin(tasksArr: any){
         const task: string = taskInput.value;
         tasksArr.push(task)
         taskInput.value = ``;
-        rendertasks(tasksArr)
+        rendertasks(tasksArr);
+
+        socket.emit('addTask', task);
       } else return;
     })
   } else{
@@ -39,7 +43,6 @@ export function renderAdmin(tasksArr: any){
 }
 
 function rendertasks(arr: any){
-  console.log(arr)
   const tasksList: HTMLElement = document.getElementById('tasksList') as HTMLElement;
 
   tasksList.innerHTML = ``;
@@ -57,8 +60,9 @@ function rendertasks(arr: any){
       if (e.target instanceof HTMLElement) {
         const chosenTask: string = e.target.innerHTML;
         arr = arr.filter((task: string) => task !== chosenTask);
-
         renderPoints(arr, chosenTask)
+        
+        socket.emit('voteTask', chosenTask)
       }
     })
   })
@@ -88,6 +92,4 @@ function renderPoints(arr: any, chosenTask: string){
       }
     })
   })
-
-
 }
