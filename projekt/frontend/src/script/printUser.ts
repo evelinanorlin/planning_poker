@@ -43,8 +43,8 @@ export function printUser() {
       const element = e.currentTarget as HTMLButtonElement;
       const value = element.innerText;
 
-      if (localStorage.getItem("user")) {
-          const user = JSON.parse(localStorage.getItem("user") || '');
+      if (sessionStorage.getItem("user")) {
+          const user = JSON.parse(sessionStorage.getItem("user") || '');
           socket.emit("userVoted", value, user);
         }
     })
