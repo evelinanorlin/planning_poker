@@ -3,17 +3,6 @@ const socket = io("http://localhost:3000");
 
 import { IUser } from '../models.ts/IUser';
 
-socket.on('userJoined', (userName: string, activeUsers: IUser[]) => {
-    console.log(`${userName} has joined the game! Active Users: ${JSON.stringify(activeUsers)}`);
-    console.log(`${JSON.stringify(activeUsers)}`)
-    printUserList(activeUsers)
-  });
-
-// const usersConnected = [
-//     { name: 'Sebastian', id: 0 },
-//     { name: 'Erik', id: 1 }
-//   ];
-
   const numbers = [0, 1, 2, 3, 5, 8, '?'];
   // const issues = ['Issue1', 'Issue2', 'Issue3'];
   // const currentIssue = issues[2];
@@ -73,7 +62,7 @@ socket.on('userJoined', (userName: string, activeUsers: IUser[]) => {
     printFinishedTasks(arg)
   })
 
-  function printUserList(usersConnected:  IUser[]) {
+  export function printUserList(usersConnected:  IUser[]) {
     console.log(usersConnected);
     const activeUserList: HTMLElement = document.querySelector('#activeUsers') as HTMLElement;
     activeUserList.innerHTML = usersConnected.map((user: IUser) => 
@@ -81,9 +70,6 @@ socket.on('userJoined', (userName: string, activeUsers: IUser[]) => {
     }
    
    
-
-  
-
   function printTasks(tasks: []){
     const upcomingTasks: HTMLElement = document.getElementById('upcomingTasks') as HTMLElement;
     upcomingTasks.innerHTML = '';
