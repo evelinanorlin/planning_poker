@@ -1,13 +1,15 @@
 import { io } from 'socket.io-client';
 const socket = io("http://localhost:3000");
 
-const usersConnected = [
+let usersConnected = [
     { name: 'Sebastian', id: 0 },
     { name: 'Erik', id: 1 }
   ];
-  const numbers = [0, 1, 2, 3, 5, 8, '?'];
-  // const issues = ['Issue1', 'Issue2', 'Issue3'];
-  // const currentIssue = issues[2];
+
+const numbers = [0, 1, 2, 3, 5, 8, '?'];
+// const issues = ['Issue1', 'Issue2', 'Issue3'];
+// const currentIssue = issues[2];
+
   export function printUser() {
     const main: HTMLElement = document.querySelector('#main') as HTMLElement;
     main.innerHTML = `
@@ -59,6 +61,11 @@ const usersConnected = [
   socket.on('voteTask', (arg) => {
     printTasks(arg.arr);
     showTask(arg.task);
+  })
+
+  socket.on("userVoted", (activeUsers) => {
+    usersConnected = activeUsers;
+    printUser();
   })
 
   socket.on('finishedTasks', (arg) =>{
