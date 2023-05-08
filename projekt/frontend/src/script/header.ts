@@ -1,5 +1,6 @@
 import { checkLogin } from "./main";
 import { socket } from './sockets';
+import { printUserList } from "./printUser";
 
 export function renderHeader() {
   const headerElement = document.querySelector('#header') as HTMLElement;
@@ -11,7 +12,7 @@ export function renderHeader() {
 
     const logOutBtn: HTMLButtonElement = document.createElement('button');
 
-    const user = JSON.parse(localStorage.getItem('user') as string);
+    const user = JSON.parse(sessionStorage.getItem('user') as string);
 
     //const adminContainer: HTMLElement = document.getElementById('adminContainer') as HTMLElement;
 
@@ -27,17 +28,21 @@ export function renderHeader() {
         logOutBtn.innerText = 'Logga Ut';
 
         logOutBtn.addEventListener('click', () => {
-          const user = JSON.parse(localStorage.getItem('user') as string);
+          const user = JSON.parse(sessionStorage.getItem('user') as string);
           if (user) {
             socket.emit('userLoggedOut', user.id);
+            console.log(user.id)
           }
 
-          localStorage.removeItem("user");
+          sessionStorage.removeItem("user");
           headerElement.innerHTML = '';
           //adminContainer.innerHTML = '';
           main.innerHTML = '';
           checkLogin();
           renderHeader();
+        });
+        socket.on('activeUsersUpdated', (activeUsers) => {
+          printUserList(activeUsers);
         });
 
       headerElement.appendChild(logOutBtn);
