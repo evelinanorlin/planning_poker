@@ -11,7 +11,6 @@ socket.on('connect', () => {
 
 socket.on('userJoined', (userName: string, activeUsers: IUser[]) => {
   console.log(`${userName} has joined the game! Active Users: ${JSON.stringify(activeUsers)}`);
-  console.log(`${JSON.stringify(activeUsers)}`)
   printUserList(activeUsers)
 });
 

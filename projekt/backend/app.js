@@ -56,6 +56,12 @@ io.on('connection', (socket) => {
 
   socket.on('userLoggedIn', (user) => {
     console.log(`User ${user.id} with name ${user.name} logged in`);
+    const userExists = activeUsers.map(u => u.id).includes(user.id);
+    if(userExists) {
+      console.log(`User ${user.id} already exists in activeUsers`);
+      return; 
+    }
+
     activeUsers.push(user);
     console.log(activeUsers);
 
