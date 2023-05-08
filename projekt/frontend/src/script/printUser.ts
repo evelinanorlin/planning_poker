@@ -40,7 +40,10 @@ const usersConnected = [
         button.classList.add('numberButton');
         button.textContent = number.toString();
         button.addEventListener('click', () => {
-          console.log(button.textContent);
+          if (localStorage.getItem("user") !== null) {
+            const user = JSON.parse(localStorage.getItem("user")!);
+            socket.emit("userVoted", button.innerText, user);
+          }
         });
         return button;
       });
