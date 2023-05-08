@@ -84,10 +84,11 @@ import { IUser } from '../models.ts/IUser';
     }
    
    
-  function printTasks(tasks: []){
+  export function printTasks(tasks: []){
     const upcomingTasks: HTMLElement = document.getElementById('upcomingTasks') as HTMLElement;
     upcomingTasks.innerHTML = '';
     tasks.map((task: string) => {
+      console.log('runs')
       upcomingTasks.innerHTML += `
       <li>${task}</li>`;
     })
@@ -103,7 +104,7 @@ import { IUser } from '../models.ts/IUser';
     Scrum-master gav "${pointsGiven.task}" ${pointsGiven.points} SP`;
   }
 
-  function printFinishedTasks(tasks: []){
+  export function printFinishedTasks(tasks: []){
     const finishedTasksLi: HTMLElement = document.getElementById('finishedTasks') as HTMLElement;
     finishedTasksLi.innerHTML = '';
     tasks.map((currTask: any) => {
