@@ -45,6 +45,7 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
 let tasksArr = [];
+let finishedTasks = [];
 
 const activeUsers = [];
 
@@ -81,7 +82,8 @@ io.on('connection', (socket) => {
   })
 
   socket.on('finishedTasks', (arg) => {
-    io.emit('finishedTasks', arg);
+    finishedTasks.push(arg);
+    io.emit('finishedTasks', finishedTasks);
   })
 
   io.on('disconnected', () => {
