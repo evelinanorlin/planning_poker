@@ -75,6 +75,15 @@ io.on('connection', (socket) => {
     console.log(activeUsers);
   });
 
+  socket.on('disconnect', () => {
+    const index = activeUsers.findIndex((user) => user.id === socket.userId);
+    if (index !== -1) {
+      activeUsers.splice(index, 1);
+      io.emit('activeUsersUpdated', activeUsers);
+    }
+    console.log(activeUsers);
+  });
+
   socket.on('userDisconnected', (userId) => {
     console.log(`User ${userId} is diconnected`);
     const index = activeUsers.findIndex((user) => user.id === userId);
