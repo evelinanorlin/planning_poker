@@ -12,40 +12,54 @@ import { IUser } from '../models.ts/IUser';
     main.innerHTML = `
     <section id="adminContainer" class="adminContainer"></section>
       <div id="votingContainer">
-        <h1>Aktuell uppgift att rösta om:</h1>
-        <h2 id="currentTask"></h2>
-        <div id="issuesContainer">
-          <h1>Användare</h1>
-          <ul id="activeUsers">
-      
-          </ul>
+        <div class="voting">
+          <h1 id="currentTask">Ingen task just nu</h1>
+          <h2>Hur många SP?</h2>
+          <div class="voteBtns">
+            <button class="voteBtn">0</button>
+            <button class="voteBtn">1</button>
+            <button class="voteBtn">2</button>
+            <button class="voteBtn">3</button>
+            <button class="voteBtn">5</button>
+            <button class="voteBtn">8</button>
+            <button class="voteBtn">?</button>
+          </div>
+          <div id="activeUsers" class="activeUsers"></div>
         </div>
-        <div id="nextIssuesDiv">
-          <h1>Kommande issues:</h1>
-          <ul id="upcomingTasks">
-          </ul>
-        </div>
-        <div id="prevIssuesDiv">
-          <h1>Föregående issues:</h1>
-          <ul id="finishedTasks">
-          </ul>
-        </div>
-        <h1>Välj poäng:</h1>
+          <div id="nextIssuesDiv" class="issuesCont">
+            <h1>Kommande issues:</h1>
+            <ul id="upcomingTasks"></ul>
+          </div>
+          <div id="prevIssuesDiv" class="issuesCont">
+            <h1>Föregående issues:</h1>
+            <ul id="finishedTasks"></ul>
+          </div>
       </div>
     `;
-    const votingContainer: HTMLElement = document.querySelector('#votingContainer') as HTMLElement;
-    const numberButtons = numbers.map(number => {
-        const button = document.createElement('button');
-        button.classList.add('numberButton');
-        button.textContent = number.toString();
-        button.addEventListener('click', () => {
-          console.log(button.textContent);
-        });
-        return button;
-      });
-    numberButtons.forEach(button => {
-      votingContainer.appendChild(button);
-    });
+
+    // <div class="issuesLists">
+    //       <div id="nextIssuesDiv" class="issuesCont">
+    //         <h1>Kommande issues:</h1>
+    //         <ul id="upcomingTasks"></ul>
+    //       </div>
+    //       <div id="prevIssuesDiv" class="issuesCont">
+    //         <h1>Föregående issues:</h1>
+    //         <ul id="finishedTasks"></ul>
+    //       </div>
+    //     </div>
+    // const votingContainer: HTMLElement = document.querySelector('#votingContainer') as HTMLElement;
+    // const numberButtons = numbers.map(number => {
+    //     const button = document.createElement('button');
+    //     button.classList.add('numberButton');
+    //     button.textContent = number.toString();
+    //     button.addEventListener('click', () => {
+    //       console.log(button.textContent);
+    //     });
+    //     return button;
+    //   });
+    // numberButtons.forEach(button => {
+    //   votingContainer.appendChild(button);
+    // });
   }
   
   socket.on('addTask', (arg: []) => {
@@ -66,7 +80,7 @@ import { IUser } from '../models.ts/IUser';
     console.log(usersConnected);
     const activeUserList: HTMLElement = document.querySelector('#activeUsers') as HTMLElement;
     activeUserList.innerHTML = usersConnected.map((user: IUser) => 
-    `<li>${user.name}</li>`).join('');
+    `<div><p>${user.name}</p></div>`).join('');
     }
    
    
