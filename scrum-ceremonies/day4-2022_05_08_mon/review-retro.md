@@ -19,5 +19,5 @@ GLAD
 - stressnivån har gått ner väldigt med mindre tasks , hanterbart och skönt att klara av dagliga tasks.! <br>
 
 <br><br>
-Vi fortsätter morognen med att tillsammans göra ett socket-flöde, och att gå igenom stegen för admin+användare.<br>
+Vi fortsätter morgonen med att tillsammans göra ett socket-flöde, och att gå igenom stegen för admin+användare.<br>
 därefter bryta ner fler tasks för veckans sprint!
