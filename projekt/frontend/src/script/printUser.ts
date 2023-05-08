@@ -6,7 +6,7 @@ import { IUser } from '../models.ts/IUser';
 socket.on('userJoined', (userName: string, activeUsers: IUser[]) => {
     console.log(`${userName} has joined the game! Active Users: ${JSON.stringify(activeUsers)}`);
     console.log(`${JSON.stringify(activeUsers)}`)
-    printUser(activeUsers)
+    printUserList(activeUsers)
   });
 
 // const usersConnected = [
@@ -15,10 +15,10 @@ socket.on('userJoined', (userName: string, activeUsers: IUser[]) => {
 //   ];
 
   const numbers = [0, 1, 2, 3, 5, 8, '?'];
-  const issues = ['Issue1', 'Issue2', 'Issue3'];
-  const currentIssue = issues[2];
-  //const pastIssues = ['PastIssue1', 'PastIssue2', 'PastIssue3'];
-  export function printUser(usersConnected:  IUser[]) {
+  // const issues = ['Issue1', 'Issue2', 'Issue3'];
+  // const currentIssue = issues[2];
+  // export function printUser(usersConnected:  IUser[]) {
+    export function printUser() {
     const main: HTMLElement = document.querySelector('#main') as HTMLElement;
     main.innerHTML = `
     <section id="adminContainer" class="adminContainer"></section>
@@ -27,8 +27,8 @@ socket.on('userJoined', (userName: string, activeUsers: IUser[]) => {
         <h2 id="currentTask"></h2>
         <div id="issuesContainer">
           <h1>Användare</h1>
-          <ul>
-          ${usersConnected.map((user: IUser) => `<li>${user.name}</li>`).join('')}
+          <ul id="activeUsers">
+      
           </ul>
         </div>
         <div id="nextIssuesDiv">
@@ -38,8 +38,7 @@ socket.on('userJoined', (userName: string, activeUsers: IUser[]) => {
         </div>
         <div id="prevIssuesDiv">
           <h1>Föregående issues:</h1>
-          <ul>
-            ${issues.map(issue => `<li>${issue}</li>`).join('')}
+          <ul id="finishedTasks">
           </ul>
         </div>
         <h1>Välj poäng:</h1>
@@ -69,6 +68,22 @@ socket.on('userJoined', (userName: string, activeUsers: IUser[]) => {
     showTask(arg.task);
   })
 
+  socket.on('finishedTasks', (arg) =>{
+    showPoints(arg[arg.length - 1]);
+    printFinishedTasks(arg)
+  })
+
+  function printUserList(usersConnected:  IUser[]) {
+    console.log(usersConnected);
+    const activeUserList: HTMLElement = document.querySelector('#activeUsers') as HTMLElement;
+    activeUserList.innerHTML = usersConnected.map((user: IUser) => 
+    `<li>${user.name}</li>`).join('');
+    }
+   
+   
+
+  
+
   function printTasks(tasks: []){
     const upcomingTasks: HTMLElement = document.getElementById('upcomingTasks') as HTMLElement;
     upcomingTasks.innerHTML = '';
@@ -81,5 +96,19 @@ socket.on('userJoined', (userName: string, activeUsers: IUser[]) => {
   function showTask(task: string){
     const currentTask: HTMLElement = document.getElementById('currentTask') as HTMLElement;
     currentTask.innerHTML = task;
+  }
+  function showPoints(pointsGiven: any){
+    const currentTask: HTMLElement = document.getElementById('currentTask') as HTMLElement;
+    currentTask.innerHTML = `
+    Scrum-master gav "${pointsGiven.task}" ${pointsGiven.points} SP`;
+  }
+
+  function printFinishedTasks(tasks: []){
+    const finishedTasksLi: HTMLElement = document.getElementById('finishedTasks') as HTMLElement;
+    finishedTasksLi.innerHTML = '';
+    tasks.map((currTask: any) => {
+    finishedTasksLi.innerHTML += `
+    <li>${currTask.task}, ${currTask.points} SP</li>`;
+    })
   }
   
