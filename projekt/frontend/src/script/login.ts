@@ -49,7 +49,7 @@ function loginUser(e: Event) {
 
   if (name && password) {
     const user = { name, password };
-    localStorage.setItem('user', JSON.stringify(user));
+    sessionStorage.setItem('user', JSON.stringify(user));
 
     fetch(BASE_URL + '/users/login', {
       method: 'POST',
@@ -66,7 +66,7 @@ function loginUser(e: Event) {
         }
       })
       .then((data) => {
-        localStorage.setItem('user', JSON.stringify(data));
+        sessionStorage.setItem('user', JSON.stringify(data));
         renderHeader();
         checkLogin();
         userToSocket(data);

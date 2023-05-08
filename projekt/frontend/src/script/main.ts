@@ -6,8 +6,7 @@ const socket = io("http://localhost:3000");
 import { renderHeader } from './header';
 import { printLogin } from './login';
 import { renderAdmin } from './adminView'
-import { printUser, printUserList } from './printUser';
-import { rendertasks } from './adminView';
+import { printUser } from './printUser';
 import { printTasks } from './printUser';
 import { printFinishedTasks } from './printUser';
 
@@ -18,7 +17,7 @@ app.innerHTML = `
   <footer id='footer' class='footer' </footer>`;
 
 export function checkLogin() {
-  if (localStorage.getItem("user")) {
+  if (sessionStorage.getItem("user")) {
     printUser();
     socket.emit('loadSite');
     socket.on('loadSite', (coming, finished) => {
@@ -28,6 +27,7 @@ export function checkLogin() {
     })
   } else {
     printLogin();
+    
   }
 }
 
@@ -35,5 +35,7 @@ const init = () => {
   renderHeader();
   checkLogin();
 };
+
+
   
 init();

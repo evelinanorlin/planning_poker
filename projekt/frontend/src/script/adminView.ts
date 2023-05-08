@@ -3,7 +3,7 @@ const socket = io("http://localhost:3000");
 
 export function renderAdmin(tasksArr: any){
   const adminContainer: HTMLElement = document.getElementById('adminContainer') as HTMLElement;
-  const user = JSON.parse(localStorage.getItem('user') || "");
+  const user = JSON.parse(sessionStorage.getItem('user') || "");
 
   if(user.admin == true){
     adminContainer.innerHTML = `
