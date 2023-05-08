@@ -18,7 +18,6 @@ app.innerHTML = `
 export function checkLogin() {
   if (localStorage.getItem("user")) {
     printUser();
-
     //OBS ska bytas ut mot array från backend
     const tasksArr: any = [];
     renderAdmin(tasksArr);

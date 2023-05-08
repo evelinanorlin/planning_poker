@@ -1,14 +1,13 @@
 import { io } from 'socket.io-client';
 const socket = io("http://localhost:3000");
 
-const usersConnected = [
-    { name: 'Sebastian', id: 0 },
-    { name: 'Erik', id: 1 }
-  ];
+import { IUser } from '../models.ts/IUser';
+
   const numbers = [0, 1, 2, 3, 5, 8, '?'];
   // const issues = ['Issue1', 'Issue2', 'Issue3'];
   // const currentIssue = issues[2];
-  export function printUser() {
+  // export function printUser(usersConnected:  IUser[]) {
+    export function printUser() {
     const main: HTMLElement = document.querySelector('#main') as HTMLElement;
     main.innerHTML = `
     <section id="adminContainer" class="adminContainer"></section>
@@ -17,8 +16,8 @@ const usersConnected = [
         <h2 id="currentTask"></h2>
         <div id="issuesContainer">
           <h1>Användare</h1>
-          <ul>
-            ${usersConnected.map(user => `<li>${user.name}</li>`).join('')}
+          <ul id="activeUsers">
+      
           </ul>
         </div>
         <div id="nextIssuesDiv">
@@ -63,6 +62,14 @@ const usersConnected = [
     printFinishedTasks(arg)
   })
 
+  export function printUserList(usersConnected:  IUser[]) {
+    console.log(usersConnected);
+    const activeUserList: HTMLElement = document.querySelector('#activeUsers') as HTMLElement;
+    activeUserList.innerHTML = usersConnected.map((user: IUser) => 
+    `<li>${user.name}</li>`).join('');
+    }
+   
+   
   function printTasks(tasks: []){
     const upcomingTasks: HTMLElement = document.getElementById('upcomingTasks') as HTMLElement;
     upcomingTasks.innerHTML = '';
@@ -76,7 +83,6 @@ const usersConnected = [
     const currentTask: HTMLElement = document.getElementById('currentTask') as HTMLElement;
     currentTask.innerHTML = task;
   }
-
   function showPoints(pointsGiven: any){
     const currentTask: HTMLElement = document.getElementById('currentTask') as HTMLElement;
     currentTask.innerHTML = `
