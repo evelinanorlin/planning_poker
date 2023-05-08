@@ -84,14 +84,14 @@ io.on('connection', (socket) => {
     console.log(activeUsers);
   });
 
-  socket.on('userDisconnected', (userId) => {
-    console.log(`User ${userId} is diconnected`);
-    const index = activeUsers.findIndex((user) => user.id === userId);
-    if (index !== -1) {
-      activeUsers.splice(index, 1);
-      io.emit('activeUsersUpdated', activeUsers);
-    }
-  });
+  // socket.on('userDisconnected', (userId) => {
+  //   console.log(`User ${userId} is diconnected`);
+  //   const index = activeUsers.findIndex((user) => user.id === userId);
+  //   if (index !== -1) {
+  //     activeUsers.splice(index, 1);
+  //     io.emit('activeUsersUpdated', activeUsers);
+  //   }
+  // });
 
   socket.on('loadSite', (arg) =>{
     io.emit('loadSite', tasksArr, finishedTasks)
