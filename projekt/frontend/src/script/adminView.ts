@@ -43,7 +43,7 @@ export function renderAdmin(tasksArr: any){
   }
 }
 
-function rendertasks(arr: any){
+export function rendertasks(arr: any){
   const tasksList: HTMLElement = document.getElementById('tasksList') as HTMLElement;
 
   tasksList.innerHTML = ``;

@@ -1,10 +1,15 @@
 console.log("were connected");
 import '../styles/style.scss';
+import { io } from 'socket.io-client';
+const socket = io("http://localhost:3000");
 
 import { renderHeader } from './header';
 import { printLogin } from './login';
 import { renderAdmin } from './adminView'
-import { printUser } from './printUser';
+import { printUser, printUserList } from './printUser';
+import { rendertasks } from './adminView';
+import { printTasks } from './printUser';
+import { printFinishedTasks } from './printUser';
 
 const app = document.querySelector('#app') as HTMLElement;
 app.innerHTML = `
@@ -12,15 +17,15 @@ app.innerHTML = `
   <main class='main' id='main'></main>
   <footer id='footer' class='footer' </footer>`;
 
-// const tasksArr: any = [];
-// renderAdmin(tasksArr);
-
 export function checkLogin() {
   if (localStorage.getItem("user")) {
     printUser();
-    //OBS ska bytas ut mot array från backend
-    const tasksArr: any = [];
-    renderAdmin(tasksArr);
+    socket.emit('loadSite');
+    socket.on('loadSite', (coming, finished) => {
+        renderAdmin(coming);
+        printTasks(coming);
+        printFinishedTasks(finished);
+    })
   } else {
     printLogin();
   }

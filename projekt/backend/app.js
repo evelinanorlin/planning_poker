@@ -76,6 +76,10 @@ io.on('connection', (socket) => {
     console.log(activeUsers)
   });
 
+  socket.on('loadSite', (arg) =>{
+    io.emit('loadSite', tasksArr, finishedTasks)
+  })
+
   socket.on('addTask', (arg) => {
     tasksArr.push(arg);
     io.emit('addTask', tasksArr);
