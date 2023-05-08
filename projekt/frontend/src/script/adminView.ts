@@ -21,6 +21,7 @@ export function renderAdmin(tasksArr: any){
         <div class="tasks">
           <ul id="tasksList" class="tasksList"></ul>
         </div>
+        <button>Avsluta session</button>
         <button>Avsluta och spara session</button>
       </div>
     </div>
