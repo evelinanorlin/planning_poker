@@ -60,6 +60,12 @@ const usersConnected = [
     showTask(arg.task);
   })
 
+  socket.on('finishedTasks', (arg) =>{
+    console.log(arg);
+    currentTask.innerHTML = `
+    Scrum-master gav "${arg.task}" ${arg.points} poäng`;
+  })
+
   function printTasks(tasks: []){
     const upcomingTasks: HTMLElement = document.getElementById('upcomingTasks') as HTMLElement;
     upcomingTasks.innerHTML = '';

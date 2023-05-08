@@ -85,7 +85,8 @@ function renderPoints(arr: any, chosenTask: string){
     btn.addEventListener('click', (e: Event) => {
       if (e.target instanceof HTMLElement) {
       const points: string = e.target.innerHTML;
-      console.log(points)
+      console.log(points);
+      socket.emit('finishedTasks', {'points': points, 'task': chosenTask});
       
       renderAdmin(arr);
       rendertasks(arr);
