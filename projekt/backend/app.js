@@ -46,13 +46,10 @@ app.use("/users", usersRouter);
 
 let tasksArr = [];
 let finishedTasks = [];
-
 let activeUsers = [];
 
 io.on('connection', (socket) => {
   console.log('socket.on back connected')
-  // const connectionDate = new Date().toLocaleString(); 
-  // console.log(`user ${socket.id} connected at ${connectionDate}`);
 
   socket.on('userLoggedIn', (user) => {
     const userExists = activeUsers.map(inloggedUser => inloggedUser.id).includes(user.id);
@@ -62,6 +59,7 @@ io.on('connection', (socket) => {
     }
     console.log(`User ${user.id} with name ${user.name} logged in`);
     activeUsers.push(user);
+    socket.userId = user.id;
     console.log(activeUsers);
 
     io.emit('userJoined', user.name, activeUsers);
@@ -72,8 +70,18 @@ io.on('connection', (socket) => {
     const index = activeUsers.findIndex((user) => user.id === userId);
     if (index !== -1) {
       activeUsers.splice(index, 1);
+      io.emit('activeUsersUpdated', activeUsers);
     }
     console.log(activeUsers)
+  });
+
+  socket.on('userDisconnected', (userId) => {
+    console.log(`User ${userId} is diconnected`);
+    const index = activeUsers.findIndex((user) => user.id === userId);
+    if (index !== -1) {
+      activeUsers.splice(index, 1);
+      io.emit('activeUsersUpdated', activeUsers);
+    }
   });
 
   socket.on('loadSite', (arg) =>{
@@ -95,8 +103,12 @@ io.on('connection', (socket) => {
     io.emit('finishedTasks', finishedTasks);
   })
 
-  io.on('disconnected', () => {
+  io.on('disconnect', () => {
+    const userId = socket.userId;
     console.log('user ${socket.id} disconnected');
+    if (userId) {
+      io.emit('userLoggedOut', userId);
+    }
   });
 });
 
