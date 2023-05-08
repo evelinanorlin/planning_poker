@@ -6,9 +6,8 @@ const usersConnected = [
     { name: 'Erik', id: 1 }
   ];
   const numbers = [0, 1, 2, 3, 5, 8, '?'];
-  const issues = ['Issue1', 'Issue2', 'Issue3'];
-  const currentIssue = issues[2];
-  //const pastIssues = ['PastIssue1', 'PastIssue2', 'PastIssue3'];
+  // const issues = ['Issue1', 'Issue2', 'Issue3'];
+  // const currentIssue = issues[2];
   export function printUser() {
     const main: HTMLElement = document.querySelector('#main') as HTMLElement;
     main.innerHTML = `
@@ -29,8 +28,7 @@ const usersConnected = [
         </div>
         <div id="prevIssuesDiv">
           <h1>Föregående issues:</h1>
-          <ul>
-            ${issues.map(issue => `<li>${issue}</li>`).join('')}
+          <ul id="finishedTasks">
           </ul>
         </div>
         <h1>Välj poäng:</h1>
@@ -60,6 +58,11 @@ const usersConnected = [
     showTask(arg.task);
   })
 
+  socket.on('finishedTasks', (arg) =>{
+    showPoints(arg[arg.length - 1]);
+    printFinishedTasks(arg)
+  })
+
   function printTasks(tasks: []){
     const upcomingTasks: HTMLElement = document.getElementById('upcomingTasks') as HTMLElement;
     upcomingTasks.innerHTML = '';
@@ -72,5 +75,20 @@ const usersConnected = [
   function showTask(task: string){
     const currentTask: HTMLElement = document.getElementById('currentTask') as HTMLElement;
     currentTask.innerHTML = task;
+  }
+
+  function showPoints(pointsGiven: any){
+    const currentTask: HTMLElement = document.getElementById('currentTask') as HTMLElement;
+    currentTask.innerHTML = `
+    Scrum-master gav "${pointsGiven.task}" ${pointsGiven.points} SP`;
+  }
+
+  function printFinishedTasks(tasks: []){
+    const finishedTasksLi: HTMLElement = document.getElementById('finishedTasks') as HTMLElement;
+    finishedTasksLi.innerHTML = '';
+    tasks.map((currTask: any) => {
+    finishedTasksLi.innerHTML += `
+    <li>${currTask.task}, ${currTask.points} SP</li>`;
+    })
   }
   

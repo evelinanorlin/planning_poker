@@ -8,6 +8,7 @@ require("dotenv").config();
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
+const { argv } = require("process");
 
 const app = express();
 
@@ -44,6 +45,7 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
 let tasksArr = [];
+let finishedTasks = [];
 
 const activeUsers = [];
 
@@ -77,6 +79,11 @@ io.on('connection', (socket) => {
   socket.on('voteTask', (arg) => {
     tasksArr = tasksArr.filter((task) => task !== arg);
     io.emit('voteTask', {'arr': tasksArr, 'task': arg})
+  })
+
+  socket.on('finishedTasks', (arg) => {
+    finishedTasks.push(arg);
+    io.emit('finishedTasks', finishedTasks);
   })
 
   io.on('disconnected', () => {
