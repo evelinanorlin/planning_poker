@@ -78,11 +78,15 @@ import { IUser } from '../models.ts/IUser';
 
   export function printUserList(usersConnected:  IUser[]) {
     console.log(usersConnected);
-    const activeUserList: HTMLElement = document.querySelector('#activeUsers') as HTMLElement;
+    const activeUserList: HTMLElement | null = document.querySelector('#activeUsers') as HTMLElement;
+
+    if (!activeUserList) {
+      return;
+    }
+    
     activeUserList.innerHTML = usersConnected.map((user: IUser) => 
     `<div><p>${user.name}</p></div>`).join('');
     }
-   
    
   export function printTasks(tasks: []){
     const upcomingTasks: HTMLElement = document.getElementById('upcomingTasks') as HTMLElement;
