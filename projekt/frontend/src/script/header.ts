@@ -12,7 +12,7 @@ export function renderHeader() {
     const logOutBtn: HTMLButtonElement = document.createElement('button');
 
     const user = JSON.parse(localStorage.getItem('user') as string);
-localStorage
+
     //const adminContainer: HTMLElement = document.getElementById('adminContainer') as HTMLElement;
 
     const main: HTMLElement = document.querySelector('#main') as HTMLElement;
