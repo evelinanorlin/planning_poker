@@ -38,6 +38,19 @@ import { IUser } from '../models.ts/IUser';
       </div>
     `;
 
+    const voteBtns = document.querySelectorAll(".voteBtn");
+    voteBtns.forEach(btn => {
+      btn.addEventListener("click", (e: Event)=> {
+        const element = e.currentTarget as HTMLButtonElement;
+        const value = element.innerText;
+
+        if (localStorage.getItem("user")) {
+            const user = JSON.parse(localStorage.getItem("user"));
+            socket.emit("userVoted", value, user);
+          }
+      })
+    })
+
     // <div class="issuesLists">
     //       <div id="nextIssuesDiv" class="issuesCont">
     //         <h1>Kommande issues:</h1>
