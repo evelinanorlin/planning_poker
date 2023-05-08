@@ -17,3 +17,7 @@ GLAD
 - möten varje dag, kommunikation, gått bra och alla är med på hur vi tänker och vill göra!<br>
 - oväntat smidigt grupparbete, mycket har flytit på bra, mycket tack vare kommunikation och dagliga möten. <br>
 - stressnivån har gått ner väldigt med mindre tasks , hanterbart och skönt att klara av dagliga tasks.! <br>
+
+<br><br>
+Vi fortsätter morognen med att tillsammans göra ett socket-flöde, och att gå igenom stegen för admin+användare.<br>
+därefter bryta ner fler tasks för veckans sprint!
