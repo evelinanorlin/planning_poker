@@ -3,132 +3,130 @@ const socket = io("http://localhost:3000");
 
 import { IUser } from '../models.ts/IUser';
 
-  const numbers = [0, 1, 2, 3, 5, 8, '?'];
-  let usersConnected = [];
-  // const issues = ['Issue1', 'Issue2', 'Issue3'];
-  // const currentIssue = issues[2];
-  // export function printUser(usersConnected:  IUser[]) {
-    export function printUser() {
-    const main: HTMLElement = document.querySelector('#main') as HTMLElement;
-    main.innerHTML = `
-    <section id="adminContainer" class="adminContainer"></section>
-      <div id="votingContainer">
-        <div class="voting">
-          <h1 id="currentTask">Ingen task just nu</h1>
-          <h2>Hur många SP?</h2>
-          <div class="voteBtns">
-            <button class="voteBtn">0</button>
-            <button class="voteBtn">1</button>
-            <button class="voteBtn">2</button>
-            <button class="voteBtn">3</button>
-            <button class="voteBtn">5</button>
-            <button class="voteBtn">8</button>
-            <button class="voteBtn">?</button>
-          </div>
-          <div id="activeUsers" class="activeUsers"></div>
+// const issues = ['Issue1', 'Issue2', 'Issue3'];
+// const currentIssue = issues[2];
+// export function printUser(usersConnected:  IUser[]) {
+
+export function printUser() {
+  const main: HTMLElement = document.querySelector('#main') as HTMLElement;
+  main.innerHTML = `
+  <section id="adminContainer" class="adminContainer"></section>
+    <div id="votingContainer">
+      <div class="voting">
+        <h1 id="currentTask">Ingen task just nu</h1>
+        <h2>Hur många SP?</h2>
+        <div class="voteBtns">
+          <button class="voteBtn">0</button>
+          <button class="voteBtn">1</button>
+          <button class="voteBtn">2</button>
+          <button class="voteBtn">3</button>
+          <button class="voteBtn">5</button>
+          <button class="voteBtn">8</button>
+          <button class="voteBtn">?</button>
         </div>
-          <div id="nextIssuesDiv" class="issuesCont">
-            <h1>Kommande issues:</h1>
-            <ul id="upcomingTasks"></ul>
-          </div>
-          <div id="prevIssuesDiv" class="issuesCont">
-            <h1>Föregående issues:</h1>
-            <ul id="finishedTasks"></ul>
-          </div>
+        <div id="activeUsers" class="activeUsers"></div>
       </div>
-    `;
+        <div id="nextIssuesDiv" class="issuesCont">
+          <h1>Kommande issues:</h1>
+          <ul id="upcomingTasks"></ul>
+        </div>
+        <div id="prevIssuesDiv" class="issuesCont">
+          <h1>Föregående issues:</h1>
+          <ul id="finishedTasks"></ul>
+        </div>
+    </div>
+  `;
 
-    const voteBtns = document.querySelectorAll(".voteBtn");
-    voteBtns.forEach(btn => {
-      btn.addEventListener("click", (e: Event)=> {
-        const element = e.currentTarget as HTMLButtonElement;
-        const value = element.innerText;
+  const voteBtns = document.querySelectorAll(".voteBtn");
+  voteBtns.forEach(btn => {
+    btn.addEventListener("click", (e: Event)=> {
+      const element = e.currentTarget as HTMLButtonElement;
+      const value = element.innerText;
 
-        if (localStorage.getItem("user")) {
-            const user = JSON.parse(localStorage.getItem("user"));
-            socket.emit("userVoted", value, user);
-          }
-      })
+      if (localStorage.getItem("user")) {
+          const user = JSON.parse(localStorage.getItem("user"));
+          socket.emit("userVoted", value, user);
+        }
     })
+  })
 
-    // <div class="issuesLists">
-    //       <div id="nextIssuesDiv" class="issuesCont">
-    //         <h1>Kommande issues:</h1>
-    //         <ul id="upcomingTasks"></ul>
-    //       </div>
-    //       <div id="prevIssuesDiv" class="issuesCont">
-    //         <h1>Föregående issues:</h1>
-    //         <ul id="finishedTasks"></ul>
-    //       </div>
-    //     </div>
-    // const votingContainer: HTMLElement = document.querySelector('#votingContainer') as HTMLElement;
-    // const numberButtons = numbers.map(number => {
-    //     const button = document.createElement('button');
-    //     button.classList.add('numberButton');
-    //     button.textContent = number.toString();
-    //     button.addEventListener('click', () => {
-    //       console.log(button.textContent);
-    //     });
-    //     return button;
-    //   });
-    // numberButtons.forEach(button => {
-    //   votingContainer.appendChild(button);
-    // });
+  // <div class="issuesLists">
+  //       <div id="nextIssuesDiv" class="issuesCont">
+  //         <h1>Kommande issues:</h1>
+  //         <ul id="upcomingTasks"></ul>
+  //       </div>
+  //       <div id="prevIssuesDiv" class="issuesCont">
+  //         <h1>Föregående issues:</h1>
+  //         <ul id="finishedTasks"></ul>
+  //       </div>
+  //     </div>
+  // const votingContainer: HTMLElement = document.querySelector('#votingContainer') as HTMLElement;
+  // const numberButtons = numbers.map(number => {
+  //     const button = document.createElement('button');
+  //     button.classList.add('numberButton');
+  //     button.textContent = number.toString();
+  //     button.addEventListener('click', () => {
+  //       console.log(button.textContent);
+  //     });
+  //     return button;
+  //   });
+  // numberButtons.forEach(button => {
+  //   votingContainer.appendChild(button);
+  // });
+}
+
+socket.on('addTask', (arg: []) => {
+  printTasks(arg)
+})
+
+socket.on('voteTask', (arg) => {
+  printTasks(arg.arr);
+  showTask(arg.task);
+})
+
+socket.on("userVoted", (activeUsers) => {
+  printUserList(activeUsers);
+})
+
+socket.on('finishedTasks', (arg) =>{
+  showPoints(arg[arg.length - 1]);
+  printFinishedTasks(arg)
+})
+
+export function printUserList(usersConnected:  IUser[]) {
+  console.log(usersConnected);
+  const activeUserList: HTMLElement = document.querySelector('#activeUsers') as HTMLElement;
+// LÄGGA TILL PERSON HAR RÖSTAT OM hasVoted ÄR TRUE
+  activeUserList.innerHTML = usersConnected.map((user: IUser) => 
+  `<div><p>${user.name}</p></div>`).join('');
   }
   
-  socket.on('addTask', (arg: []) => {
-    printTasks(arg)
-  })
-
-  socket.on('voteTask', (arg) => {
-    printTasks(arg.arr);
-    showTask(arg.task);
-  })
-
-  socket.on("userVoted", (activeUsers) => {
-    usersConnected = activeUsers;
-    printUser();
-  })
-
-  socket.on('finishedTasks', (arg) =>{
-    showPoints(arg[arg.length - 1]);
-    printFinishedTasks(arg)
-  })
-
-  export function printUserList(usersConnected:  IUser[]) {
-    console.log(usersConnected);
-    const activeUserList: HTMLElement = document.querySelector('#activeUsers') as HTMLElement;
-    activeUserList.innerHTML = usersConnected.map((user: IUser) => 
-    `<div><p>${user.name}</p></div>`).join('');
-    }
-   
-   
-  export function printTasks(tasks: []){
-    const upcomingTasks: HTMLElement = document.getElementById('upcomingTasks') as HTMLElement;
-    upcomingTasks.innerHTML = '';
-    tasks.map((task: string) => {
-      console.log('runs')
-      upcomingTasks.innerHTML += `
-      <li>${task}</li>`;
-    })
-  }
-
-  function showTask(task: string){
-    const currentTask: HTMLElement = document.getElementById('currentTask') as HTMLElement;
-    currentTask.innerHTML = task;
-  }
-  function showPoints(pointsGiven: any){
-    const currentTask: HTMLElement = document.getElementById('currentTask') as HTMLElement;
-    currentTask.innerHTML = `
-    Scrum-master gav "${pointsGiven.task}" ${pointsGiven.points} SP`;
-  }
-
-  export function printFinishedTasks(tasks: []){
-    const finishedTasksLi: HTMLElement = document.getElementById('finishedTasks') as HTMLElement;
-    finishedTasksLi.innerHTML = '';
-    tasks.map((currTask: any) => {
-    finishedTasksLi.innerHTML += `
-    <li>${currTask.task}, ${currTask.points} SP</li>`;
-    })
-  }
   
+export function printTasks(tasks: []){
+  const upcomingTasks: HTMLElement = document.getElementById('upcomingTasks') as HTMLElement;
+  upcomingTasks.innerHTML = '';
+  tasks.map((task: string) => {
+    console.log('runs')
+    upcomingTasks.innerHTML += `
+    <li>${task}</li>`;
+  })
+}
+
+function showTask(task: string){
+  const currentTask: HTMLElement = document.getElementById('currentTask') as HTMLElement;
+  currentTask.innerHTML = task;
+}
+function showPoints(pointsGiven: any){
+  const currentTask: HTMLElement = document.getElementById('currentTask') as HTMLElement;
+  currentTask.innerHTML = `
+  Scrum-master gav "${pointsGiven.task}" ${pointsGiven.points} SP`;
+}
+
+export function printFinishedTasks(tasks: []){
+  const finishedTasksLi: HTMLElement = document.getElementById('finishedTasks') as HTMLElement;
+  finishedTasksLi.innerHTML = '';
+  tasks.map((currTask: any) => {
+  finishedTasksLi.innerHTML += `
+  <li>${currTask.task}, ${currTask.points} SP</li>`;
+  })
+}
