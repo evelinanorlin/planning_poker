@@ -47,7 +47,7 @@ app.use("/users", usersRouter);
 let tasksArr = [];
 let finishedTasks = [];
 
-const activeUsers = [];
+let activeUsers = [];
 
 io.on('connection', (socket) => {
   console.log('socket.on back connected')
@@ -55,13 +55,12 @@ io.on('connection', (socket) => {
   // console.log(`user ${socket.id} connected at ${connectionDate}`);
 
   socket.on('userLoggedIn', (user) => {
-    console.log(`User ${user.id} with name ${user.name} logged in`);
-    const userExists = activeUsers.map(u => u.id).includes(user.id);
+    const userExists = activeUsers.map(inloggedUser => inloggedUser.id).includes(user.id);
     if(userExists) {
       console.log(`User ${user.id} already exists in activeUsers`);
       return; 
     }
-
+    console.log(`User ${user.id} with name ${user.name} logged in`);
     activeUsers.push(user);
     console.log(activeUsers);
 
