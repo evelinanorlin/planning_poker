@@ -25,7 +25,6 @@ export function printUser() {
           <button class="voteBtn">?</button>
         </div>
         <div id="activeUsers" class="activeUsers">
-          <div id="userValue"></div>
         </div>
       </div>
         <div id="nextIssuesDiv" class="issuesCont">
@@ -42,7 +41,6 @@ export function printUser() {
   const voteBtns = document.querySelectorAll(".voteBtn");
   voteBtns.forEach(btn => {
     btn.addEventListener("click", (e: Event)=> {
-      e.preventDefault();
       const element = e.currentTarget as HTMLButtonElement;
       const value = element.innerText;
       printVoteValue(value);
@@ -108,8 +106,8 @@ socket.on('finishedTasks', (arg) =>{
     }
     
     activeUserList.innerHTML = usersConnected.map((user: IUser) => 
-    `<div id=${user.id}><p id"userName">${user.name}</p></div>`).join('');
-    }
+    `<div id=${user.id} data-userid=${user.id}><p id"userName">${user.name}</p></div>`).join('');
+  }
    
   export function printTasks(tasks: []){
     const upcomingTasks: HTMLElement = document.getElementById('upcomingTasks') as HTMLElement;
@@ -123,22 +121,19 @@ socket.on('finishedTasks', (arg) =>{
 
   function printVoteValue(value: string) {
     const user = JSON.parse(sessionStorage.getItem("user") || '');
-    console.log(user.name + ' has voted ' + value + ' SP');
+    console.log(user.id + ' has voted ' + value + ' SP');
+
+    const activeUserList: HTMLElement | null = document.querySelector('#activeUsers') as HTMLElement;
+
+    if (activeUserList) {
+      const userDiv: HTMLElement | null = activeUserList.querySelector(`[data-userid="${user.id}"]`);
   
-    const userValue: HTMLDivElement = document.createElement('div');
-    userValue.innerHTML= value;
-  
-    let userDiv: HTMLElement | null = document.querySelector('#userDiv');
-    if (!userDiv) {
-      userDiv = document.createElement('div');
-      userDiv.id = 'userDiv';
-      const activeUsers: HTMLElement | null = document.querySelector('#activeUsers');
-      if (activeUsers) {
-        activeUsers.appendChild(userDiv);
+      if (userDiv) {
+        const voteValueP: HTMLElement = document.createElement('p');
+        voteValueP.innerText = value;
+        userDiv.appendChild(voteValueP);
       }
     }
-  
-    userDiv.appendChild(userValue);
   }
 
 function showTask(task: string){
