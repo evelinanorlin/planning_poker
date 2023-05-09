@@ -49,13 +49,15 @@ let currentVotes = [];
 let activeUsers = [];
 
 io.on('connection', (socket) => {
-  console.log('socket.on back connected')
+  console.log('socket.on back connected');
 
   socket.on('userLoggedIn', (user) => {
-    const userExists = activeUsers.map(inloggedUser => inloggedUser.id).includes(user.id);
-    if(userExists) {
+    const userExists = activeUsers
+      .map((inloggedUser) => inloggedUser.id)
+      .includes(user.id);
+    if (userExists) {
       console.log(`User ${user.id} already exists in activeUsers`);
-      return; 
+      return;
     }
     console.log(`User ${user.id} with name ${user.name} logged in`);
     activeUsers.push(user);
@@ -93,9 +95,9 @@ io.on('connection', (socket) => {
   //   }
   // });
 
-  socket.on('loadSite', (arg) =>{
-    io.emit('loadSite', tasksArr, finishedTasks)
-  })
+  socket.on('loadSite', (arg) => {
+    io.emit('loadSite', tasksArr, finishedTasks);
+  });
 
   socket.on('addTask', (arg) => {
     tasksArr.push(arg);
@@ -118,13 +120,12 @@ io.on('connection', (socket) => {
       currentVotes.push(vote);
     }
 
-    // if (currentVotes.length === activeUsers.length) {
-    //   // EMIT: SPEL ÄR SLUT!!
-    // } else {
-    // EMIT: Den som ligger under här.
-    // }
+    if (currentVotes.length === activeUsers.length) {
+      io.emit('voteOver', currentVotes);
+    } else {
+      io.emit('userVoted', activeUsers);
+    }
     console.log(currentVotes);
-    io.emit('userVoted', activeUsers);
   });
 
   socket.on('finishedTasks', (arg) => {
