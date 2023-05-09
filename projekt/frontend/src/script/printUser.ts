@@ -133,6 +133,7 @@ socket.on('finishedTasks', (arg) =>{
       if (userDiv) {
         const voteValueP: HTMLElement = document.createElement('p');
         voteValueP.innerText = value;
+        userDiv.classList.add("voted")
         userDiv.appendChild(voteValueP);
       }
     }
