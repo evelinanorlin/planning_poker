@@ -63,7 +63,9 @@ export function rendertasks(arr: any){
         const chosenTask: string = e.target.innerHTML;
         arr = arr.filter((task: string) => task !== chosenTask);
         renderPoints(arr, chosenTask)
-        
+
+        const container = document.querySelector("#averageSP") as HTMLHeadingElement;
+        container.innerHTML = `Hur många SP?`;
         socket.emit('voteTask', chosenTask)
       }
     })

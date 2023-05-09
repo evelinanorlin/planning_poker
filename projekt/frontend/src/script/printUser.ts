@@ -14,7 +14,7 @@ export function printUser() {
     <div id="votingContainer">
       <div class="voting">
         <h1 id="currentTask">Ingen task just nu</h1>
-        <h2>Hur många SP?</h2>
+        <h2 id="averageSP">Hur många SP?</h2>
         <div class="voteBtns">
           <button class="voteBtn">0</button>
           <button class="voteBtn">1</button>
@@ -94,27 +94,27 @@ socket.on('finishedTasks', (arg) =>{
 })
 
 
-  export function printUserList(usersConnected:  IUser[]) {
-    console.log(usersConnected);
-    const activeUserList: HTMLElement | null = document.querySelector('#activeUsers') as HTMLElement;
+export function printUserList(usersConnected:  IUser[]) {
+  console.log(usersConnected);
+  const activeUserList: HTMLElement | null = document.querySelector('#activeUsers') as HTMLElement;
 
-    if (!activeUserList) {
-      return;
-    }
-    
-    activeUserList.innerHTML = usersConnected.map((user: IUser) => 
-    `<div><p>${user.name}</p></div>`).join('');
-    }
-   
-  export function printTasks(tasks: []){
-    const upcomingTasks: HTMLElement = document.getElementById('upcomingTasks') as HTMLElement;
-    upcomingTasks.innerHTML = '';
-    tasks.map((task: string) => {
-      console.log('runs')
-      upcomingTasks.innerHTML += `
-      <li>${task}</li>`;
-    })
+  if (!activeUserList) {
+    return;
   }
+  
+  activeUserList.innerHTML = usersConnected.map((user: IUser) => 
+  `<div><p>${user.name}</p></div>`).join('');
+  }
+  
+export function printTasks(tasks: []){
+  const upcomingTasks: HTMLElement = document.getElementById('upcomingTasks') as HTMLElement;
+  upcomingTasks.innerHTML = '';
+  tasks.map((task: string) => {
+    console.log('runs')
+    upcomingTasks.innerHTML += `
+    <li>${task}</li>`;
+  })
+}
 
 function showTask(task: string){
   const currentTask: HTMLElement = document.getElementById('currentTask') as HTMLElement;

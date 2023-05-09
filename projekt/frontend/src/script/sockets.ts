@@ -3,6 +3,7 @@ export const socket = io("http://localhost:3000");
 
 import { printUserList } from './printUser';
 import { IUser } from '../models.ts/IUser';
+import { roundFibonacci } from './roundFibonacci';
 
 
 socket.on('connect', () => {
@@ -31,6 +32,8 @@ socket.on("voteOver", (currentVotes: []) => {
   const reducedNumber = currentVotes.reduce((a, b) => Number(a.voteNumber) + Number(b.voteNumber)) / currentVotes.length;
   const closestFibonacci = roundFibonacci(reducedNumber);
 
+  const container = document.querySelector("#averageSP") as HTMLHeadingElement;
+  container.innerHTML = `Medelvärdet blev: ${closestFibonacci}`;
 
   console.log(reducedNumber);
   console.log(closestFibonacci);
