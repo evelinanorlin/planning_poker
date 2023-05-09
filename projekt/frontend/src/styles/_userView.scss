@@ -35,13 +35,15 @@
 
     div{
       background: grey;
-      width: 70px;
-      height: 70px;
+      width: 100px;
+      height: 100px;
+      border-radius: 15px;;
     }
   }
   
   .activeUsers div.voted {
-    background: $secondaryDark;
+    background: rgb(45,128,120);
+    background: linear-gradient(124deg, rgba(45,128,120,1) 19%, rgba(38,101,101,1) 35%, rgba(28,64,76,1) 100%);
     color: whitesmoke;
     font-weight: bold;
   }

@@ -118,13 +118,16 @@ io.on('connection', (socket) => {
       currentVotes.push(vote);
     }
 
+    const activeUserIndex = activeUsers.findIndex((activeUser) => activeUser.id === user.id);
+  activeUsers[activeUserIndex].vote = voteNumber;
+    
     // if (currentVotes.length === activeUsers.length) {
     //   // EMIT: SPEL ÄR SLUT!!
     // } else {
     // EMIT: Den som ligger under här.
     // }
     console.log(currentVotes);
-    io.emit('userVoted', activeUsers);
+    io.emit('userVoted', activeUsers, currentVotes);
   });
 
   socket.on('finishedTasks', (arg) => {

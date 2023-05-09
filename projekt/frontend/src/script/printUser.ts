@@ -25,6 +25,7 @@ export function printUser() {
           <button class="voteBtn">?</button>
         </div>
         <div id="activeUsers" class="activeUsers">
+          <div id="userVote">
         </div>
       </div>
         <div id="nextIssuesDiv" class="issuesCont">
@@ -43,33 +44,35 @@ export function printUser() {
     btn.addEventListener("click", (e: Event)=> {
       const element = e.currentTarget as HTMLButtonElement;
       const value = element.innerText;
-      printVoteValue(value);
+      const user = JSON.parse(sessionStorage.getItem("user") || '');
+      console.log(user.id + ' has voted ' + value + ' SP');
+      // printVoteValue(value);
 
       if (sessionStorage.getItem("user")) {
-          const user = JSON.parse(sessionStorage.getItem("user") || '');
           socket.emit("userVoted", value, user);
 
         }
     })
   })
 
-  function printVoteValue(value: string) {
-    const user = JSON.parse(sessionStorage.getItem("user") || '');
-    console.log(user.id + ' has voted ' + value + ' SP');
 
-    const activeUserList: HTMLElement | null = document.querySelector('#activeUsers') as HTMLElement;
+  // function printVoteValue(value: string) {
+  //   const user = JSON.parse(sessionStorage.getItem("user") || '');
+  //   console.log(user.id + ' has voted ' + value + ' SP');
 
-    if (activeUserList) {
-      const userDiv: HTMLElement | null = activeUserList.querySelector(`[data-userid="${user.id}"]`);
+  //   const activeUserList: HTMLElement | null = document.querySelector('#activeUsers') as HTMLElement;
+
+  //   if (activeUserList) {
+  //     const userDiv: HTMLElement | null = activeUserList.querySelector(`[data-userid='${user.id}']`);
   
-      if (userDiv) {
-        const voteValueP: HTMLElement = document.createElement('p');
-        voteValueP.innerText = value;
-        userDiv.classList.add("voted")
-        userDiv.appendChild(voteValueP);
-      }
-    }
-  }
+  //     if (userDiv) {
+  //       const voteValueP: HTMLElement = document.createElement('p');
+  //       voteValueP.innerText = value;
+  //       userDiv.classList.add("voted")
+  //       userDiv.appendChild(voteValueP);
+  //     }
+  //   }
+  // }
 
 
   // <div class="issuesLists">
@@ -97,6 +100,7 @@ export function printUser() {
   // });
 }
 
+
 socket.on('addTask', (arg: []) => {
   printTasks(arg)
 })
@@ -115,7 +119,6 @@ socket.on('finishedTasks', (arg) =>{
   printFinishedTasks(arg)
 })
 
-
   export function printUserList(usersConnected:  IUser[]) {
     console.log(usersConnected);
     const activeUserList: HTMLElement | null = document.querySelector('#activeUsers') as HTMLElement;
@@ -124,10 +127,16 @@ socket.on('finishedTasks', (arg) =>{
       return;
     }
     
-    activeUserList.innerHTML = usersConnected.map((user: IUser) => 
-    `<div data-userid=${user.id}><p id"userName">${user.name}</p></div>`).join('');
+    activeUserList.innerHTML = usersConnected.map((user: IUser) => {
+      
+      if (user.vote) {
+        return `<div class="${user.hasVoted ? 'voted' : ''}" data-userid=${user.id}><p id="userName">${user.name}<br>röstar på<br>${user.vote} SP</p></div>`;
+      } else {
+        return `<div class="${user.hasVoted ? 'voted' : ''}" data-userid=${user.id}><p id="userName">${user.name}</p></div>`;
+      }
+    }).join('');
   }
-   
+
   export function printTasks(tasks: []){
     const upcomingTasks: HTMLElement = document.getElementById('upcomingTasks') as HTMLElement;
     upcomingTasks.innerHTML = '';
@@ -137,8 +146,6 @@ socket.on('finishedTasks', (arg) =>{
       <li>${task}</li>`;
     })
   }
-
-
 
 function showTask(task: string){
   const currentTask: HTMLElement = document.getElementById('currentTask') as HTMLElement;
