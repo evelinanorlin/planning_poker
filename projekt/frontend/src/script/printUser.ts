@@ -24,7 +24,9 @@ export function printUser() {
           <button class="voteBtn">8</button>
           <button class="voteBtn">?</button>
         </div>
-        <div id="activeUsers" class="activeUsers"></div>
+        <div id="activeUsers" class="activeUsers">
+          <div id="userValue"></div>
+        </div>
       </div>
         <div id="nextIssuesDiv" class="issuesCont">
           <h1>Kommande issues:</h1>
@@ -40,8 +42,10 @@ export function printUser() {
   const voteBtns = document.querySelectorAll(".voteBtn");
   voteBtns.forEach(btn => {
     btn.addEventListener("click", (e: Event)=> {
+      e.preventDefault();
       const element = e.currentTarget as HTMLButtonElement;
       const value = element.innerText;
+      printVoteValue(value);
 
       if (sessionStorage.getItem("user")) {
           const user = JSON.parse(sessionStorage.getItem("user") || '');
@@ -49,6 +53,7 @@ export function printUser() {
         }
     })
   })
+
 
   // <div class="issuesLists">
   //       <div id="nextIssuesDiv" class="issuesCont">
@@ -103,7 +108,7 @@ socket.on('finishedTasks', (arg) =>{
     }
     
     activeUserList.innerHTML = usersConnected.map((user: IUser) => 
-    `<div><p>${user.name}</p></div>`).join('');
+    `<div id=${user.id}><p id"userName">${user.name}</p></div>`).join('');
     }
    
   export function printTasks(tasks: []){
@@ -116,10 +121,31 @@ socket.on('finishedTasks', (arg) =>{
     })
   }
 
+  function printVoteValue(value: string) {
+    const user = JSON.parse(sessionStorage.getItem("user") || '');
+    console.log(user.name + ' has voted ' + value + ' SP');
+  
+    const userValue: HTMLDivElement = document.createElement('div');
+    userValue.innerHTML= value;
+  
+    let userDiv: HTMLElement | null = document.querySelector('#userDiv');
+    if (!userDiv) {
+      userDiv = document.createElement('div');
+      userDiv.id = 'userDiv';
+      const activeUsers: HTMLElement | null = document.querySelector('#activeUsers');
+      if (activeUsers) {
+        activeUsers.appendChild(userDiv);
+      }
+    }
+  
+    userDiv.appendChild(userValue);
+  }
+
 function showTask(task: string){
   const currentTask: HTMLElement = document.getElementById('currentTask') as HTMLElement;
   currentTask.innerHTML = task;
 }
+
 function showPoints(pointsGiven: any){
   const currentTask: HTMLElement = document.getElementById('currentTask') as HTMLElement;
   currentTask.innerHTML = `
