@@ -106,7 +106,7 @@ socket.on('finishedTasks', (arg) =>{
     }
     
     activeUserList.innerHTML = usersConnected.map((user: IUser) => 
-    `<div id=${user.id} data-userid=${user.id}><p id"userName">${user.name}</p></div>`).join('');
+    `<div data-userid=${user.id}><p id"userName">${user.name}</p></div>`).join('');
   }
    
   export function printTasks(tasks: []){
