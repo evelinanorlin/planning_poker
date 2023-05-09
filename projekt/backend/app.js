@@ -122,11 +122,9 @@ io.on('connection', (socket) => {
 
     if (currentVotes.length === activeUsers.length) {
       io.emit('voteOver', currentVotes);
-      console.log('VOTE OVER!');
     } else {
       io.emit('userVoted', activeUsers);
     }
-    console.log(currentVotes);
   });
 
   socket.on('finishedTasks', (arg) => {
