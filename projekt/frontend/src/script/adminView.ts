@@ -74,11 +74,14 @@ function renderPoints(arr: any, chosenTask: string){
   const adminContainer: HTMLElement = document.getElementById('adminContainer') as HTMLElement;
   adminContainer.innerHTML = `
   <h3>Hur många SP vill du ge till "${chosenTask}"?</h3>
+  <div class="pontsBtns">
   <button class="pointButton">0</button>
   <button class="pointButton">1</button>
+  <button class="pointButton">2</button>
   <button class="pointButton">3</button>
   <button class="pointButton">5</button>
-  <button class="pointButton">8</button>`;
+  <button class="pointButton">8</button>
+  </div>`;
 
   const pointsBtns = document.querySelectorAll('.pointButton');
 
