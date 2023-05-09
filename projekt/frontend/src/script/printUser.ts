@@ -85,7 +85,7 @@ socket.on('voteTask', (arg) => {
 })
 
 socket.on("userVoted", (activeUsers) => {
-  printUserList(activeUsers);
+  printUserList(activeUsers);  
 })
 
 socket.on('finishedTasks', (arg) =>{
@@ -95,7 +95,6 @@ socket.on('finishedTasks', (arg) =>{
 
 
 export function printUserList(usersConnected:  IUser[]) {
-  console.log(usersConnected);
   const activeUserList: HTMLElement | null = document.querySelector('#activeUsers') as HTMLElement;
 
   if (!activeUserList) {
