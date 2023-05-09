@@ -109,9 +109,9 @@ export function printUserList(usersConnected:  IUser[]) {
     
   activeUserList.innerHTML = usersConnected.map((user: IUser) => {  
     if (user.vote) {
-      return `<div class="${user.hasVoted ? 'voted' : ''}" data-userid=${user.id}><p id="userName">${user.name}<br>röstar på<br>${user.vote} SP</p></div>`;
+      return `<div class="${user.hasVoted ? 'voted' : ''}" data-userid=${user.id}><p id="userName" class="userName">${user.name}<br>röstar på<br>${user.vote} SP</p></div>`;
     } else {
-      return `<div class="${user.hasVoted ? 'voted' : ''}" data-userid=${user.id}><p id="userName">${user.name}</p></div>`;
+      return `<div class="${user.hasVoted ? 'voted' : ''}" data-userid=${user.id}><p id="userName" class="userName">${user.name}<br>har inte<br>röstat än</p></div>`;
     }
   }).join('');
 }

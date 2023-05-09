@@ -125,11 +125,13 @@ io.on('connection', (socket) => {
     );
     activeUsers[activeUserIndex].vote = voteNumber;
 
-    if (currentVotes.length === activeUsers.length) {
-      io.emit('voteOver', currentVotes);
-    } else {
-      io.emit("userVoted", activeUsers, currentVotes);
-    }
+    // if (currentVotes.length === activeUsers.length) {
+    //   // EMIT: SPEL ÄR SLUT!!
+    // } else {
+    // EMIT: Den som ligger under här.
+    // }
+    console.log(currentVotes);
+    io.emit("userVoted", activeUsers, currentVotes);
   });
 
   socket.on("finishedTasks", (arg) => {

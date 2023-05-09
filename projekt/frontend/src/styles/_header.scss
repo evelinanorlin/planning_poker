@@ -14,12 +14,18 @@ header {
         font-size: 2rem;
         text-align: left;
         font-family: $secondaryFont;
+        text-shadow: $primaryDark 4px 0 10px;
     }
 
     button {
+        cursor: pointer;
         width: 200px;
         height: 50px;
         text-transform: uppercase;
+
+        &:hover {
+            font-weight: bold;
+        }
     }
 
     .user-name {
@@ -33,6 +39,7 @@ header {
     .user-admin {
         font-size: 1rem;
         font-style: normal;
+        text-shadow: $primaryDark 4px 0 10px;
     }
 
 }
