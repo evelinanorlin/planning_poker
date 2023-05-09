@@ -43,8 +43,8 @@ export function printUser() {
       const element = e.currentTarget as HTMLButtonElement;
       const value = element.innerText;
 
-      if (localStorage.getItem("user")) {
-          const user = JSON.parse(localStorage.getItem("user") || '');
+      if (sessionStorage.getItem("user")) {
+          const user = JSON.parse(sessionStorage.getItem("user") || '');
           socket.emit("userVoted", value, user);
         }
     })
@@ -93,24 +93,28 @@ socket.on('finishedTasks', (arg) =>{
   printFinishedTasks(arg)
 })
 
-export function printUserList(usersConnected:  IUser[]) {
-  console.log(usersConnected);
-  const activeUserList: HTMLElement = document.querySelector('#activeUsers') as HTMLElement;
-// LÄGGA TILL PERSON HAR RÖSTAT OM hasVoted ÄR TRUE
-  activeUserList.innerHTML = usersConnected.map((user: IUser) => 
-  `<div><p>${user.name}</p></div>`).join('');
+
+  export function printUserList(usersConnected:  IUser[]) {
+    console.log(usersConnected);
+    const activeUserList: HTMLElement | null = document.querySelector('#activeUsers') as HTMLElement;
+
+    if (!activeUserList) {
+      return;
+    }
+    
+    activeUserList.innerHTML = usersConnected.map((user: IUser) => 
+    `<div><p>${user.name}</p></div>`).join('');
+    }
+   
+  export function printTasks(tasks: []){
+    const upcomingTasks: HTMLElement = document.getElementById('upcomingTasks') as HTMLElement;
+    upcomingTasks.innerHTML = '';
+    tasks.map((task: string) => {
+      console.log('runs')
+      upcomingTasks.innerHTML += `
+      <li>${task}</li>`;
+    })
   }
-  
-  
-export function printTasks(tasks: []){
-  const upcomingTasks: HTMLElement = document.getElementById('upcomingTasks') as HTMLElement;
-  upcomingTasks.innerHTML = '';
-  tasks.map((task: string) => {
-    console.log('runs')
-    upcomingTasks.innerHTML += `
-    <li>${task}</li>`;
-  })
-}
 
 function showTask(task: string){
   const currentTask: HTMLElement = document.getElementById('currentTask') as HTMLElement;

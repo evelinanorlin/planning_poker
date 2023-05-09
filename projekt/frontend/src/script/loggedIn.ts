@@ -12,7 +12,7 @@ export function printHTML() {
     }
     // const logoutBtn = document.querySelector("#logoutBtn");
     // logoutBtn?.addEventListener("click", () => {
-    //   localStorage.removeItem("user");
+    //   sessionStorage.removeItem("user");
     //   checkLogin();
     // })
   }
