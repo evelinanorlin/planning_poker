@@ -28,15 +28,17 @@
       }
     }
   }
-  .pontsBtns{
+  .adminPointsBtns{
+    width: 80%;
+    max-width: 800px;
     display: flex;
     justify-content: space-between;
+    margin: 0 auto;
 
     button{
       border: none;
       background: transparent;
       font-size: 2rem;
-
     }
   }
 }
