@@ -38,6 +38,7 @@ export function renderAdmin(tasksArr: any){
         socket.emit('addTask', task);
       } else return;
     })
+    rendertasks(tasksArr);
   } else{
     adminContainer.innerHTML = '';
   }
