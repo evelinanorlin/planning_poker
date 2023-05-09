@@ -48,10 +48,10 @@ let finishedTasks = [];
 let currentVotes = [];
 let activeUsers = [];
 
-io.on("connection", (socket) => {
-  console.log("socket.on back connected");
+io.on('connection', (socket) => {
+  console.log('socket.on back connected');
 
-  socket.on("userLoggedIn", (user) => {
+  socket.on('userLoggedIn', (user) => {
     const userExists = activeUsers
       .map((inloggedUser) => inloggedUser.id)
       .includes(user.id);
@@ -95,8 +95,8 @@ io.on("connection", (socket) => {
   //   }
   // });
 
-  socket.on("loadSite", (arg) => {
-    io.emit("loadSite", tasksArr, finishedTasks);
+  socket.on('loadSite', (arg) => {
+    io.emit('loadSite', tasksArr, finishedTasks);
   });
 
   socket.on("addTask", (arg) => {
@@ -125,13 +125,11 @@ io.on("connection", (socket) => {
     );
     activeUsers[activeUserIndex].vote = voteNumber;
 
-    // if (currentVotes.length === activeUsers.length) {
-    //   // EMIT: SPEL ÄR SLUT!!
-    // } else {
-    // EMIT: Den som ligger under här.
-    // }
-    console.log(currentVotes);
-    io.emit("userVoted", activeUsers, currentVotes);
+    if (currentVotes.length === activeUsers.length) {
+      io.emit('voteOver', currentVotes);
+    } else {
+      io.emit("userVoted", activeUsers, currentVotes);
+    }
   });
 
   socket.on("finishedTasks", (arg) => {

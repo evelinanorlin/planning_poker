@@ -14,7 +14,7 @@ export function printUser() {
     <div id="votingContainer">
       <div class="voting">
         <h1 id="currentTask">Ingen task just nu</h1>
-        <h2>Hur många SP?</h2>
+        <h2 id="averageSP">Hur många SP?</h2>
         <div class="voteBtns">
           <button class="voteBtn">0</button>
           <button class="voteBtn">1</button>
@@ -91,7 +91,7 @@ socket.on('voteTask', (arg) => {
 })
 
 socket.on("userVoted", (activeUsers) => {
-  printUserList(activeUsers);
+  printUserList(activeUsers);  
 })
 
 socket.on('finishedTasks', (arg) =>{

@@ -63,7 +63,14 @@ export function rendertasks(arr: any){
         const chosenTask: string = e.target.innerHTML;
         arr = arr.filter((task: string) => task !== chosenTask);
         renderPoints(arr, chosenTask)
-        
+
+        //Restore heading
+        const container = document.querySelector("#averageSP") as HTMLHeadingElement;
+        container.innerHTML = `Hur många SP?`;
+        //Activate voting buttons
+        const voteBtns = document.querySelectorAll(".voteBtn");
+        voteBtns.forEach(btn => btn.removeAttribute("disabled"));
+
         socket.emit('voteTask', chosenTask)
       }
     })
