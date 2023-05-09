@@ -2,7 +2,9 @@ header {
     display: flex;
     justify-content: space-between;
     padding: 2rem;
-    background-color: lightgray;
+    color: $primaryLight;
+    background: rgb(45,128,120);
+    background: linear-gradient(124deg, rgba(45,128,120,1) 19%, rgba(38,101,101,1) 35%, rgba(28,64,76,1) 100%); ;
     margin: 0;
 
     h1 {
@@ -11,6 +13,7 @@ header {
         font-style: italic;
         font-size: 2rem;
         text-align: left;
+        font-family: $secondaryFont;
     }
 
     button {
@@ -20,6 +23,7 @@ header {
     }
 
     .user-name {
+        font-family: $primaryFont;
         text-transform: uppercase;
         font-weight: bold;
         font-size: 1.5rem;
