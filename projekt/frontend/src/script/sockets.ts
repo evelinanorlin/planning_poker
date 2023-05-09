@@ -35,6 +35,9 @@ socket.on("voteOver", (currentVotes: []) => {
   const container = document.querySelector("#averageSP") as HTMLHeadingElement;
   container.innerHTML = `Medelvärdet blev: ${closestFibonacci}`;
 
+  const voteBtns = document.querySelectorAll(".voteBtn");
+  voteBtns.forEach(btn => btn.setAttribute("disabled", ""));
+
   console.log(reducedNumber);
   console.log(closestFibonacci);
   
