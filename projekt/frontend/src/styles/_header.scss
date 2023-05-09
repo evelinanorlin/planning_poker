@@ -1,8 +1,9 @@
 header {
+    // height: 12rem;
     display: flex;
     justify-content: space-between;
     padding: 2rem;
-    color: $primaryLight;
+    color: whitesmoke;
     background: rgb(45,128,120);
     background: linear-gradient(124deg, rgba(45,128,120,1) 19%, rgba(38,101,101,1) 35%, rgba(28,64,76,1) 100%);
     margin: 0;
@@ -18,6 +19,7 @@ header {
     }
 
     button {
+        margin-left: 1rem;
         cursor: pointer;
         width: 200px;
         height: 50px;
@@ -34,6 +36,7 @@ header {
         font-weight: bold;
         font-size: 1.5rem;
         font-style: normal;
+        color: $primaryLight
     }
 
     .user-admin {
