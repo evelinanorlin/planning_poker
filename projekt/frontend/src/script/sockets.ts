@@ -21,10 +21,10 @@ socket.on('userJoined', (userName: string, activeUsers: IUser[]) => {
   printUserList(activeUsers);
 });
 
-export function userToSocket(data: IUser) {
-  const user = { id: data.id, name: data.name };
-  console.log(user);
-  socket.emit('userLoggedIn', user);
-  }
+// export function userToSocket(data: IUser) {
+//   const user = { id: data.id, name: data.name };
+//   console.log(user);
+  
+//   }
 
 
