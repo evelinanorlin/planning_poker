@@ -53,6 +53,24 @@ export function printUser() {
     })
   })
 
+  function printVoteValue(value: string) {
+    const user = JSON.parse(sessionStorage.getItem("user") || '');
+    console.log(user.id + ' has voted ' + value + ' SP');
+
+    const activeUserList: HTMLElement | null = document.querySelector('#activeUsers') as HTMLElement;
+
+    if (activeUserList) {
+      const userDiv: HTMLElement | null = activeUserList.querySelector(`[data-userid="${user.id}"]`);
+  
+      if (userDiv) {
+        const voteValueP: HTMLElement = document.createElement('p');
+        voteValueP.innerText = value;
+        userDiv.classList.add("voted")
+        userDiv.appendChild(voteValueP);
+      }
+    }
+  }
+
 
   // <div class="issuesLists">
   //       <div id="nextIssuesDiv" class="issuesCont">
@@ -120,23 +138,7 @@ socket.on('finishedTasks', (arg) =>{
     })
   }
 
-  function printVoteValue(value: string) {
-    const user = JSON.parse(sessionStorage.getItem("user") || '');
-    console.log(user.id + ' has voted ' + value + ' SP');
 
-    const activeUserList: HTMLElement | null = document.querySelector('#activeUsers') as HTMLElement;
-
-    if (activeUserList) {
-      const userDiv: HTMLElement | null = activeUserList.querySelector(`[data-userid="${user.id}"]`);
-  
-      if (userDiv) {
-        const voteValueP: HTMLElement = document.createElement('p');
-        voteValueP.innerText = value;
-        userDiv.classList.add("voted")
-        userDiv.appendChild(voteValueP);
-      }
-    }
-  }
 
 function showTask(task: string){
   const currentTask: HTMLElement = document.getElementById('currentTask') as HTMLElement;
