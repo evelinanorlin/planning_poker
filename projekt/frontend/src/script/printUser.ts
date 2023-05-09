@@ -49,7 +49,6 @@ export function printUser() {
           const user = JSON.parse(sessionStorage.getItem("user") || '');
           socket.emit("userVoted", value, user);
 
-
         }
     })
   })
