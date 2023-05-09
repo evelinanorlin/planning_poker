@@ -37,8 +37,4 @@ socket.on("voteOver", (currentVotes: []) => {
 
   const voteBtns = document.querySelectorAll(".voteBtn");
   voteBtns.forEach(btn => btn.setAttribute("disabled", ""));
-
-  console.log(reducedNumber);
-  console.log(closestFibonacci);
-  
 })
