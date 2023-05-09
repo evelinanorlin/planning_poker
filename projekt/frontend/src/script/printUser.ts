@@ -55,26 +55,6 @@ export function printUser() {
     })
   })
 
-
-  // function printVoteValue(value: string) {
-  //   const user = JSON.parse(sessionStorage.getItem("user") || '');
-  //   console.log(user.id + ' has voted ' + value + ' SP');
-
-  //   const activeUserList: HTMLElement | null = document.querySelector('#activeUsers') as HTMLElement;
-
-  //   if (activeUserList) {
-  //     const userDiv: HTMLElement | null = activeUserList.querySelector(`[data-userid='${user.id}']`);
-  
-  //     if (userDiv) {
-  //       const voteValueP: HTMLElement = document.createElement('p');
-  //       voteValueP.innerText = value;
-  //       userDiv.classList.add("voted")
-  //       userDiv.appendChild(voteValueP);
-  //     }
-  //   }
-  // }
-
-
   // <div class="issuesLists">
   //       <div id="nextIssuesDiv" class="issuesCont">
   //         <h1>Kommande issues:</h1>
@@ -119,33 +99,32 @@ socket.on('finishedTasks', (arg) =>{
   printFinishedTasks(arg)
 })
 
-  export function printUserList(usersConnected:  IUser[]) {
-    console.log(usersConnected);
-    const activeUserList: HTMLElement | null = document.querySelector('#activeUsers') as HTMLElement;
+export function printUserList(usersConnected:  IUser[]) {
+  console.log(usersConnected);
+  const activeUserList: HTMLElement | null = document.querySelector('#activeUsers') as HTMLElement;
 
-    if (!activeUserList) {
-      return;
-    }
+  if (!activeUserList) {
+    return;
+  }
     
-    activeUserList.innerHTML = usersConnected.map((user: IUser) => {
-      
-      if (user.vote) {
-        return `<div class="${user.hasVoted ? 'voted' : ''}" data-userid=${user.id}><p id="userName">${user.name}<br>röstar på<br>${user.vote} SP</p></div>`;
-      } else {
-        return `<div class="${user.hasVoted ? 'voted' : ''}" data-userid=${user.id}><p id="userName">${user.name}</p></div>`;
-      }
-    }).join('');
-  }
+  activeUserList.innerHTML = usersConnected.map((user: IUser) => {  
+    if (user.vote) {
+      return `<div class="${user.hasVoted ? 'voted' : ''}" data-userid=${user.id}><p id="userName">${user.name}<br>röstar på<br>${user.vote} SP</p></div>`;
+    } else {
+      return `<div class="${user.hasVoted ? 'voted' : ''}" data-userid=${user.id}><p id="userName">${user.name}</p></div>`;
+    }
+  }).join('');
+}
 
-  export function printTasks(tasks: []){
-    const upcomingTasks: HTMLElement = document.getElementById('upcomingTasks') as HTMLElement;
-    upcomingTasks.innerHTML = '';
-    tasks.map((task: string) => {
-      console.log('runs')
-      upcomingTasks.innerHTML += `
-      <li>${task}</li>`;
-    })
-  }
+export function printTasks(tasks: []){
+  const upcomingTasks: HTMLElement = document.getElementById('upcomingTasks') as HTMLElement;
+  upcomingTasks.innerHTML = '';
+  tasks.map((task: string) => {
+    console.log('runs')
+    upcomingTasks.innerHTML += `
+    <li>${task}</li>`;
+  })
+}
 
 function showTask(task: string){
   const currentTask: HTMLElement = document.getElementById('currentTask') as HTMLElement;
