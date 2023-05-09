@@ -9,7 +9,6 @@ import { renderAdmin } from './adminView'
 import { printUser } from './printUser';
 import { printTasks } from './printUser';
 import { printFinishedTasks } from './printUser';
-import { roundFibonacci } from './roundFibonacci';
 
 const app = document.querySelector('#app') as HTMLElement;
 app.innerHTML = `
