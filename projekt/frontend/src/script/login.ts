@@ -1,6 +1,5 @@
 import { renderHeader } from './header';
 import { checkLogin } from './main';
-import { userToSocket } from './sockets';
 
 const BASE_URL = 'http://localhost:3000';
 
@@ -69,7 +68,6 @@ function loginUser(e: Event) {
         sessionStorage.setItem('user', JSON.stringify(data));
         renderHeader();
         checkLogin();
-        userToSocket(data);
       })
       .catch((err) => {
         const message = document.querySelector('#loginMessage') as HTMLDivElement;

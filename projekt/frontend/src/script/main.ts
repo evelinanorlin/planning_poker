@@ -25,6 +25,7 @@ export function checkLogin() {
         printTasks(coming);
         printFinishedTasks(finished);
     })
+    socket.emit('userLoggedIn', JSON.parse(sessionStorage.getItem("user") || ""));
   } else {
     printLogin();
     
