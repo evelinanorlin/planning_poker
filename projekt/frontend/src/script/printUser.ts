@@ -48,6 +48,8 @@ export function printUser() {
       if (sessionStorage.getItem("user")) {
           const user = JSON.parse(sessionStorage.getItem("user") || '');
           socket.emit("userVoted", value, user);
+
+
         }
     })
   })
