@@ -109,29 +109,29 @@ io.on('connection', (socket) => {
     io.emit("voteTask", { arr: tasksArr, task: arg });
   });
 
-  socket.on("userVoted", (voteNumber, user) => {
+  socket.on('userVoted', (voteNumber, user) => {
     const vote = { userId: user.id, voteNumber };
     const userIndex = currentVotes.findIndex((vote) => vote.userId === user.id);
     activeUsers.find((activeUser) => activeUser.id === user.id).hasVoted = true;
-
+  
+    const activeUserIndex = activeUsers.findIndex(
+      (activeUser) => activeUser.id === user.id
+    );
+    activeUsers[activeUserIndex].vote = voteNumber;
+  
     if (userIndex !== -1) {
       currentVotes[userIndex].voteNumber = voteNumber;
     } else {
       currentVotes.push(vote);
     }
-
-    const activeUserIndex = activeUsers.findIndex(
-      (activeUser) => activeUser.id === user.id
-    );
-    activeUsers[activeUserIndex].vote = voteNumber;
-
-    // if (currentVotes.length === activeUsers.length) {
-    //   // EMIT: SPEL ÄR SLUT!!
-    // } else {
-    // EMIT: Den som ligger under här.
-    // }
-    console.log(currentVotes);
-    io.emit("userVoted", activeUsers, currentVotes);
+  
+    if (currentVotes.length === activeUsers.length) {
+      io.emit('userVoted', activeUsers);
+      io.emit('voteOver', currentVotes);
+    } else {
+      console.log(currentVotes);
+      io.emit('userVoted', activeUsers);
+    }
   });
 
   socket.on("finishedTasks", (arg) => {

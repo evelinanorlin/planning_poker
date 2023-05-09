@@ -44,11 +44,11 @@ export function printUser() {
     btn.addEventListener("click", (e: Event)=> {
       const element = e.currentTarget as HTMLButtonElement;
       const value = element.innerText;
-      const user = JSON.parse(sessionStorage.getItem("user") || '');
-      console.log(user.id + ' has voted ' + value + ' SP');
-      // printVoteValue(value);
+     
 
       if (sessionStorage.getItem("user")) {
+        const user = JSON.parse(sessionStorage.getItem("user") || '');
+        console.log(user.id + ' has voted ' + value + ' SP');
           socket.emit("userVoted", value, user);
 
         }
