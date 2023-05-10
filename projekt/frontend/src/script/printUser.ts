@@ -19,9 +19,7 @@ export function printUser() {
           <button class="voteBtn">8</button>
           <button class="voteBtn">?</button>
         </div>
-        <div id="activeUsers" class="activeUsers">
-          <div id="userVote"></div>
-        </div>
+        <div id="activeUsers" class="activeUsers"></div>
       </div>
         <div id="nextIssuesDiv" class="issuesCont1">
           <h1>Kommande issues:</h1>
@@ -80,12 +78,30 @@ export function printUserList(usersConnected: IUser[]) {
 
   activeUserList.innerHTML = usersConnected.map((user: IUser) => {
     if (user.vote) {
-      // return `<div class='${user.hasVoted ? 'result' : ''}' data-userid=${user.id}><p id='userName' class='userName'>${user.name}<br>röstar på<br>${user.vote} SP</p></div>`;
       return `<div class='${user.hasVoted ? 'voted' : ''}' data-userid=${user.id}><p id='userName' class='userName'>${user.name}<br>har<br>röstat</p></div>`;
     } else {
       return `<div class='${user.hasVoted ? 'voted' : ''}' data-userid=${user.id}><p id='userName' class='userName'>${user.name}<br>har inte<br>röstat än</p></div>`;
     }
   }).join('');
+}
+
+export function renderUserresult(activeUsers: IUser[]) {
+  const activeUsersContainer = document.querySelector('#activeUsers');
+
+  // if (activeUsersContainer) {
+  //   const userDivs = activeUsersContainer.querySelectorAll('div');
+  //   userDivs.forEach((div) => div.classList.add('result'));
+  // }
+
+  activeUsers.map((user: IUser) => {
+    console.log(user.id);
+    const userDiv = document.querySelector(`div[data-userid='${user.id}']`);
+    console.log(userDiv);
+    if (userDiv) {
+      userDiv.innerHTML = `<p id='userName' class='userName'>${user.name}<br>röstar på<br>${user.vote} SP</p>`;
+      userDiv.classList.add('result');
+    }
+  });
 }
 
 
@@ -99,7 +115,7 @@ export function printTasks(tasks: []) {
   })
 }
 
-export function showTask(task: string){
+export function showTask(task: string) {
   //Activate voting buttons
   const voteBtns = document.querySelectorAll(".voteBtn");
   voteBtns.forEach(btn => btn.removeAttribute("disabled"));
