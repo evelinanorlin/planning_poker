@@ -21,7 +21,7 @@ export function renderAdmin(tasksArr: any){
         <div class="tasks">
           <ul id="tasksList" class="tasksList"></ul>
         </div>
-        <button>Avsluta session</button>
+        <button type="button" id="finishBtn">Avsluta session</button>
         <button type="button" id="finishAndSaveBtn">Avsluta och spara session</button>
       </div>
     </div>
@@ -30,6 +30,11 @@ export function renderAdmin(tasksArr: any){
     const finishAndSaveBtn = document.getElementById('finishAndSaveBtn');
     if (finishAndSaveBtn) {
       finishAndSaveBtn.addEventListener('click', endSessionAndSave);
+    }
+
+    const finishBtn = document.getElementById('finishBtn');
+    if (finishBtn) {
+      finishBtn.addEventListener('click', endSession);
     }
 
     const taskInput: HTMLInputElement = document.getElementById('taskInput') as HTMLInputElement;
@@ -50,9 +55,14 @@ export function renderAdmin(tasksArr: any){
   }
 }
 
+function endSession() {
+  socket.emit('endSessionBack');
+  console.log("connection frontend end sess");
+}
+
 function endSessionAndSave() {
   socket.emit('endSessionAndSaveBack');
-  console.log("connection frontend");
+  console.log("connection frontendend sess and save");
 }
 
 

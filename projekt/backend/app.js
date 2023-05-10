@@ -156,11 +156,41 @@ io.on('connection', (socket) => {
       finishedTasks = [];
       currentVotes = [];
       console.log("Cleared finishedTasks array");
-
       io.emit('loadSite', tasksArr, finishedTasks);
-
     });
   });
+
+  socket.on('endSessionAndSaveBack', () => {
+    let oldTasks = finishedTasks.slice();
+    console.log("Backend");
+    console.log(oldTasks)
+    db.collection('tasks').insertOne({ oldTasks }, function(err, result) {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      console.log(`Skickade in ${oldTasks.length} tasks i databasen`);
+      tasksArr = [];
+      finishedTasks = [];
+      currentVotes = [];
+      console.log("Cleared finishedTasks array");
+      io.emit('loadSite', tasksArr, finishedTasks);
+    });
+  });
+
+socket.on('endSessionBack', () => {
+  let oldTasks = finishedTasks.slice();
+  console.log("Backend");
+  console.log(oldTasks)
+  tasksArr = [];
+  finishedTasks = [];
+  currentVotes = [];
+  console.log("Cleared finishedTasks array");
+  io.emit('loadSite', tasksArr, finishedTasks);
+});
+
+
+
 
   io.on('disconnect', () => {
     const userId = socket.userId;
