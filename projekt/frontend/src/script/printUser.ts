@@ -131,7 +131,7 @@ function showTask(task: string){
   //Activate voting buttons
   const voteBtns = document.querySelectorAll(".voteBtn");
   voteBtns.forEach(btn => btn.removeAttribute("disabled"));
-  
+
   const currentTask: HTMLElement = document.getElementById('currentTask') as HTMLElement;
   currentTask.innerHTML = task;
 }

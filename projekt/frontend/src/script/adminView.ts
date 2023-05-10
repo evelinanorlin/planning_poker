@@ -34,7 +34,6 @@ export function renderAdmin(tasksArr: any){
         tasksArr.push(task)
         taskInput.value = ``;
         rendertasks(tasksArr);
-
         socket.emit('addTask', task);
       } else return;
     })

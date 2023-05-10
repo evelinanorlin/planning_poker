@@ -47,7 +47,7 @@ let tasksArr = [];
 let finishedTasks = [];
 let currentVotes = [];
 let activeUsers = [];
-let chosenTask;
+let currentTask;
 
 io.on('connection', (socket) => {
   console.log('socket.on back connected');
@@ -97,7 +97,7 @@ io.on('connection', (socket) => {
   // });
 
   socket.on('loadSite', (arg) => {
-    io.emit('loadSite', tasksArr, finishedTasks);
+    io.emit('loadSite', tasksArr, finishedTasks, currentTask);
   });
 
   socket.on('addTask', (arg) => {
@@ -106,7 +106,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('voteTask', (arg) => {
-    chosenTask = arg;
+    currentTask = arg;
     currentVotes = [];
     activeUsers.forEach((user) => (user.hasVoted = false));
     console.log(activeUsers);
@@ -132,7 +132,7 @@ io.on('connection', (socket) => {
 
     if (currentVotes.length === activeUsers.length) {
       io.emit('userVoted', activeUsers);
-      io.emit('voteOver', currentVotes, tasksArr, chosenTask);
+      io.emit('voteOver', currentVotes, tasksArr, currentTask);
     } else {
       console.log(currentVotes);
       io.emit('userVoted', activeUsers);
