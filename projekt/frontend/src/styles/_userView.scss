@@ -27,8 +27,9 @@
     }
   }
 
-  .issuesCont{
-    background: grey;
+  .issuesCont1, .issuesCont2{
+    background: $primaryDark;
+    color: white;
     height: 300px;
     padding: 15px 0;
     margin-top: 30px;
@@ -59,7 +60,6 @@
       color: whitesmoke;
       font-weight: bold;
       text-shadow: $primaryDark 4px 0 10px;
-
     }
   }
   
@@ -75,8 +75,6 @@
     "coming result";
     grid-gap: 20px;
 
-
-
     .voting{
       grid-area: vote;
       .voteBtns{
@@ -87,11 +85,11 @@
         }
       }
     }
-    #nextIssuesDiv{
+    .issuesCont1{
       grid-area: coming;
     }
 
-    #prevIssuesDiv{
+    .issuesCont2{
       grid-area: result;
     }
   }
@@ -101,23 +99,25 @@
   #votingContainer{
     width: 100%;
     height: 100vh;
-    display: grid;
     grid-template-areas: "coming vote result";
+    margin: 0;
+    padding: 0;
 
     .voting{
       grid-area: vote;
     }
   
-    .issuesCont{
+    .issuesCont1, .issuesCont2{
+      margin: 0;
+      padding:0;
       height: 100vh;
-      margin-top: 2rem;
     }
 
-    #nextIssuesDiv{
+    .issuesCont1{
       grid-area: coming;
     }
     
-    #prevIssuesDiv{
+    .issuesCont2{
       grid-area: result;
     }
   }
