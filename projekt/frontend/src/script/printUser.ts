@@ -127,7 +127,7 @@ export function printTasks(tasks: []){
   })
 }
 
-function showTask(task: string){
+export function showTask(task: string){
   //Activate voting buttons
   const voteBtns = document.querySelectorAll(".voteBtn");
   voteBtns.forEach(btn => btn.removeAttribute("disabled"));
