@@ -5,6 +5,7 @@ import { printUserList } from './printUser';
 import { IUser } from '../models.ts/IUser';
 import { roundFibonacci } from './roundFibonacci';
 import { renderPoints } from './adminView';
+import { renderUserresult } from './printUser';
 
 socket.on('connect', () => {
   console.log('socket.on front connected')
@@ -28,7 +29,7 @@ socket.on('userJoined', (userName: string, activeUsers: IUser[]) => {
   
 //   }
 
-socket.on("voteOver", (currentVotes: Array<any>, comingTasks, chosenTask) => {
+socket.on("voteOver", (currentVotes: Array<any>, comingTasks, chosenTask, activeUsers: IUser[]) => {
   renderPoints(comingTasks, chosenTask);
 
   const votesArr: number[] = [];
@@ -51,4 +52,7 @@ socket.on("voteOver", (currentVotes: Array<any>, comingTasks, chosenTask) => {
 
   const voteBtns = document.querySelectorAll(".voteBtn");
   voteBtns.forEach(btn => btn.setAttribute("disabled", ""));
+
+  renderUserresult(activeUsers);
 })
+
