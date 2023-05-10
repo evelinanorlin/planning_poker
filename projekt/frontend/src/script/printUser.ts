@@ -1,11 +1,6 @@
 import { io } from 'socket.io-client';
-const socket = io("http://localhost:3000");
-
 import { IUser } from '../models.ts/IUser';
-
-// const issues = ['Issue1', 'Issue2', 'Issue3'];
-// const currentIssue = issues[2];
-// export function printUser(usersConnected:  IUser[]) {
+const socket = io("http://localhost:3000");
 
 export function printUser() {
   const main: HTMLElement = document.querySelector('#main') as HTMLElement;
@@ -25,14 +20,14 @@ export function printUser() {
           <button class="voteBtn">?</button>
         </div>
         <div id="activeUsers" class="activeUsers">
-          <div id="userVote">
+          <div id="userVote"></div>
         </div>
       </div>
-        <div id="nextIssuesDiv" class="issuesCont">
+        <div id="nextIssuesDiv" class="issuesCont1">
           <h1>Kommande issues:</h1>
           <ul id="upcomingTasks"></ul>
         </div>
-        <div id="prevIssuesDiv" class="issuesCont">
+        <div id="prevIssuesDiv" class="issuesCont2">
           <h1>Föregående issues:</h1>
           <ul id="finishedTasks"></ul>
         </div>
@@ -50,36 +45,10 @@ export function printUser() {
         const user = JSON.parse(sessionStorage.getItem("user") || '');
         console.log(user.id + ' has voted ' + value + ' SP');
           socket.emit("userVoted", value, user);
-
         }
     })
   })
-
-  // <div class="issuesLists">
-  //       <div id="nextIssuesDiv" class="issuesCont">
-  //         <h1>Kommande issues:</h1>
-  //         <ul id="upcomingTasks"></ul>
-  //       </div>
-  //       <div id="prevIssuesDiv" class="issuesCont">
-  //         <h1>Föregående issues:</h1>
-  //         <ul id="finishedTasks"></ul>
-  //       </div>
-  //     </div>
-  // const votingContainer: HTMLElement = document.querySelector('#votingContainer') as HTMLElement;
-  // const numberButtons = numbers.map(number => {
-  //     const button = document.createElement('button');
-  //     button.classList.add('numberButton');
-  //     button.textContent = number.toString();
-  //     button.addEventListener('click', () => {
-  //       console.log(button.textContent);
-  //     });
-  //     return button;
-  //   });
-  // numberButtons.forEach(button => {
-  //   votingContainer.appendChild(button);
-  // });
 }
-
 
 socket.on('addTask', (arg: []) => {
   printTasks(arg)
