@@ -29,7 +29,15 @@ socket.on('userJoined', (userName: string, activeUsers: IUser[]) => {
 //   }
 
 socket.on("voteOver", (currentVotes: Array<any>) => {
-  const reducedNumber = currentVotes.reduce((a, b) => Number(a.voteNumber) + Number(b.voteNumber)) / currentVotes.length;
+  console.log(currentVotes)
+
+  const votesArr: number[] = [];
+  currentVotes.map(currentVote => {
+    const vote: number = parseInt(currentVote.voteNumber);
+    votesArr.push(vote)
+  })
+  
+  const reducedNumber = votesArr.reduce((a, b) => Number(a) + Number(b)) / votesArr.length;
   
   const closestFibonacci = roundFibonacci(reducedNumber);
 
