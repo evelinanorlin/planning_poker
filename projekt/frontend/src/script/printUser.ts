@@ -85,13 +85,14 @@ socket.on('addTask', (arg: []) => {
   printTasks(arg)
 })
 
-socket.on('voteTask', (arg) => {
+socket.on('voteTask', (arg, activeUsers) => {
   printTasks(arg.arr);
   showTask(arg.task);
+  printUserList(activeUsers);
 })
 
 socket.on("userVoted", (activeUsers) => {
-  printUserList(activeUsers);  
+  printUserList(activeUsers);
 })
 
 socket.on('finishedTasks', (arg) =>{
