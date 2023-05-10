@@ -13,7 +13,6 @@ export function printUser() {
         <div class="voteBtns">
           <button class="voteBtn">0</button>
           <button class="voteBtn">1</button>
-          <button class="voteBtn">2</button>
           <button class="voteBtn">3</button>
           <button class="voteBtn">5</button>
           <button class="voteBtn">8</button>

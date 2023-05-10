@@ -104,7 +104,6 @@ export function renderPoints(arr: string[], chosenTask: string){
     <div class="adminPointsBtns">
     <button class="pointButton">0</button>
     <button class="pointButton">1</button>
-    <button class="pointButton">2</button>
     <button class="pointButton">3</button>
     <button class="pointButton">5</button>
     <button class="pointButton">8</button>

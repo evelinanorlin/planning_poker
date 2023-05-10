@@ -6,7 +6,7 @@ const BASE_URL = 'http://localhost:3000';
 export function printLogin() {
     const main = document.querySelector('#main');
     if(main != undefined) {
-    main.innerHTML =`
+    main.innerHTML = `
     <h1>Ivar's Planeringspoker</h1>
     <div id="loginContainer">
     <form id="loginUser">
