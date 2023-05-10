@@ -132,7 +132,7 @@ io.on('connection', (socket) => {
 
     if (currentVotes.length === activeUsers.length) {
       io.emit('userVoted', activeUsers);
-      io.emit('voteOver', currentVotes);
+      io.emit('voteOver', currentVotes, tasksArr, currentTask);
     } else {
       console.log(currentVotes);
       io.emit('userVoted', activeUsers);
