@@ -34,7 +34,6 @@ export function renderAdmin(tasksArr: any){
         tasksArr.push(task)
         taskInput.value = ``;
         rendertasks(tasksArr);
-
         socket.emit('addTask', task);
       } else return;
     })
@@ -70,7 +69,6 @@ export function rendertasks(arr: any){
         //Activate voting buttons
         const voteBtns = document.querySelectorAll(".voteBtn");
         voteBtns.forEach(btn => btn.removeAttribute("disabled"));
-
         socket.emit('voteTask', chosenTask)
       }
     })
