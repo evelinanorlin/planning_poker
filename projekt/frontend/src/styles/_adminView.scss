@@ -1,10 +1,16 @@
 .adminContainer{
-  padding: 60px 0;
   width: 80%;
   margin: 0 auto;
   button{
     display: block;
     border: 1px solid black;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-transform: uppercase;
+
+    &:hover {
+        font-weight: bold;
+    }
   }
   button, input{
     width: 100%;
@@ -12,10 +18,12 @@
     padding: 0;
     height: 35px;
     margin-top: 16px;
+    font-family: $primaryFont;
   }
 
   .tasks{
-    background: gray;
+    background: $primaryDark;
+    color: white;
     height: 100px;
     overflow-y: scroll;
 
