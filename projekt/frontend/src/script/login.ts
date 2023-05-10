@@ -7,7 +7,7 @@ export function printLogin() {
     const main = document.querySelector('#main');
     if(main != undefined) {
     main.innerHTML = `
-    <h1>Ivar's Planeringspoker</h1>
+    <h1>Förenkla ditt agila arbetsflöde med Ivars PlaneringsPoker</h1>
     <div id="loginContainer">
     <form id="loginUser">
       <h4>Logga in:</h4>
@@ -28,6 +28,7 @@ export function printLogin() {
       <button>Skapa</button>
     </form>
     </div> 
+    <img class="login-img" alt="gamecards" src="/public/poker-hand-svgrepo-com.svg"/>
   `;
   }
 
