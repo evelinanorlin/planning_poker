@@ -1,7 +1,7 @@
 import { io } from 'socket.io-client';
 const socket = io("http://localhost:3000");
 
-export function renderAdmin(tasksArr: any){
+export function renderAdmin(tasksArr: string[]){
   const adminContainer: HTMLElement = document.getElementById('adminContainer') as HTMLElement;
   const user = JSON.parse(sessionStorage.getItem('user') || "");
 
@@ -65,7 +65,7 @@ function endSessionAndSave() {
 }
 
 
-export function rendertasks(arr: any){
+export function rendertasks(arr: string[]){
   const tasksList: HTMLElement = document.getElementById('tasksList') as HTMLElement;
 
   tasksList.innerHTML = ``;
@@ -83,22 +83,21 @@ export function rendertasks(arr: any){
       if (e.target instanceof HTMLElement) {
         const chosenTask: string = e.target.innerHTML;
         arr = arr.filter((task: string) => task !== chosenTask);
-
-        //Restore heading
         const container = document.querySelector("#averageSP") as HTMLHeadingElement;
         container.innerHTML = `Hur många SP?`;
 
         socket.emit('voteTask', chosenTask)
+
+        renderLockAdmin();
       }
     })
   })
 }
 
-export function renderPoints(arr: any, chosenTask: string){
+export function renderPoints(arr: string[], chosenTask: string){
   const user = JSON.parse(sessionStorage.getItem('user') || "");
 
   if(user.admin == true){
-    console.log(arr, chosenTask)
     const adminContainer: HTMLElement = document.getElementById('adminContainer') as HTMLElement;
     adminContainer.innerHTML = `
     <h3>Hur många SP vill du ge till "${chosenTask}"?</h3>
@@ -128,4 +127,9 @@ export function renderPoints(arr: any, chosenTask: string){
   } else {
     return;
   }
+}
+
+function renderLockAdmin(){
+  const adminContainer: HTMLElement = document.getElementById('adminContainer') as HTMLElement;
+  adminContainer.innerHTML = `<h2>Vänta medan dina undersåtar röstar...</h2>`;
 }
