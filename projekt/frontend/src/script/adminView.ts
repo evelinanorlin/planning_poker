@@ -22,14 +22,14 @@ export function renderAdmin(tasksArr: any){
           <ul id="tasksList" class="tasksList"></ul>
         </div>
         <button>Avsluta session</button>
-        <button type="button" id="finishBtn">Avsluta och spara session</button>
+        <button type="button" id="finishAndSaveBtn">Avsluta och spara session</button>
       </div>
     </div>
     `;
   
-    const finishBtn = document.getElementById('finishBtn');
-    if (finishBtn) {
-      finishBtn.addEventListener('click', endSession);
+    const finishAndSaveBtn = document.getElementById('finishAndSaveBtn');
+    if (finishAndSaveBtn) {
+      finishAndSaveBtn.addEventListener('click', endSessionAndSave);
     }
 
     const taskInput: HTMLInputElement = document.getElementById('taskInput') as HTMLInputElement;
@@ -50,8 +50,8 @@ export function renderAdmin(tasksArr: any){
   }
 }
 
-function endSession() {
-  socket.emit('endSessionBack');
+function endSessionAndSave() {
+  socket.emit('endSessionAndSaveBack');
   console.log("connection frontend");
 }
 

@@ -142,17 +142,23 @@ io.on('connection', (socket) => {
     io.emit('finishedTasks', finishedTasks);
   });
 
-  socket.on('endSessionBack', () => {
+  socket.on('endSessionAndSaveBack', () => {
     let oldTasks = finishedTasks.slice();
     console.log("Backend");
+    console.log(oldTasks)
     db.collection('tasks').insertOne({ oldTasks }, function(err, result) {
       if (err) {
         console.log(err);
         return;
       }
       console.log("Inserted document into the collection");
+      tasksArr = [];
       finishedTasks = [];
+      currentVotes = [];
       console.log("Cleared finishedTasks array");
+
+      io.emit('loadSite', tasksArr, finishedTasks);
+
     });
   });
 
