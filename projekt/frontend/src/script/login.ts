@@ -4,31 +4,33 @@ import { checkLogin } from './main';
 const BASE_URL = 'http://localhost:3000';
 
 export function printLogin() {
-    const main = document.querySelector('#main');
-    if(main != undefined) {
+  const main = document.querySelector('#main');
+  if (main != undefined) {
     main.innerHTML = `
     <h1>Förenkla ditt agila arbetsflöde med Ivars PlaneringsPoker</h1>
-    <div id="loginContainer">
-    <form id="loginUser">
-      <h4>Logga in:</h4>
-      <div id="loginMessage"></div>
-      <input id="loginUsername" type="text" placeholder="Användarnamn">
-      <br>
-      <input id="loginPassword" type="password" placeholder="Lösenord">
-      <br>
-      <button>Logga in</button>
-    </form>
-    <form id="createUser">
-      <h4>Skapa användare:</h4>
-      <div id="createMessage"></div>
-      <input id="createUsername" type="text" placeholder="Användarnamn">
-      <br>
-      <input id="createPassword" type="password" placeholder="Lösenord">
-      <br>
-      <button>Skapa</button>
-    </form>
-    </div> 
-    <img class="login-img" alt="gamecards" src="/public/poker-hand-svgrepo-com.svg"/>
+    <div class="main-content">
+      <div id="loginContainer">
+        <form id="loginUser">
+          <h4>Logga in:</h4>
+          <div id="loginMessage"></div>
+          <input id="loginUsername" type="text" placeholder="Användarnamn">
+          <br>
+          <input id="loginPassword" type="password" placeholder="Lösenord">
+          <br>
+          <button>Logga in</button>
+        </form>
+        <form id="createUser">
+          <h4>Skapa användare:</h4>
+          <div id="createMessage"></div>
+          <input id="createUsername" type="text" placeholder="Användarnamn">
+          <br>
+          <input id="createPassword" type="password" placeholder="Lösenord">
+          <br>
+          <button>Skapa</button>
+        </form>
+      </div> 
+      <img class="login-img" alt="gamecards" src="/public/poker-hand-svgrepo-com.svg"/>
+    </div>
   `;
   }
 
@@ -38,7 +40,7 @@ export function printLogin() {
   const createUserForm = document.querySelector('#createUser');
   createUserForm?.addEventListener('submit', createUser);
 }
-  
+
 function loginUser(e: Event) {
   e.preventDefault();
   const name = (document.querySelector('#loginUsername') as HTMLInputElement).value;
