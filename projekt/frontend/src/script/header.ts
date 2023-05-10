@@ -14,8 +14,6 @@ export function renderHeader() {
 
     const user = JSON.parse(sessionStorage.getItem('user') as string);
 
-    //const adminContainer: HTMLElement = document.getElementById('adminContainer') as HTMLElement;
-
     const main: HTMLElement = document.querySelector('#main') as HTMLElement;
     
     if (user) {
@@ -36,7 +34,6 @@ export function renderHeader() {
 
           sessionStorage.removeItem("user");
           headerElement.innerHTML = '';
-          //adminContainer.innerHTML = '';
           main.innerHTML = '';
           checkLogin();
           renderHeader();
