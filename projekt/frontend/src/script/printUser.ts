@@ -127,7 +127,7 @@ export function printTasks(tasks: []) {
   })
 }
 
-function showTask(task: string) {
+export function showTask(task: string){
   const currentTask: HTMLElement = document.getElementById('currentTask') as HTMLElement;
   currentTask.innerHTML = task;
 }

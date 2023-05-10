@@ -7,6 +7,7 @@ import { renderAdmin } from './adminView'
 import { printUser } from './printUser';
 import { printTasks } from './printUser';
 import { printFinishedTasks } from './printUser';
+import { showTask } from './printUser';
 
 const socket = io("http://localhost:3000");
 
@@ -20,10 +21,13 @@ export function checkLogin() {
   if (sessionStorage.getItem("user")) {
     printUser();
     socket.emit('loadSite');
-    socket.on('loadSite', (coming, finished) => {
+    socket.on('loadSite', (coming, finished, current) => {
         renderAdmin(coming);
         printTasks(coming);
         printFinishedTasks(finished);
+        if(current){
+          showTask(current);
+        }
     })
     socket.emit('userLoggedIn', JSON.parse(sessionStorage.getItem("user") || ""));
   } else {
