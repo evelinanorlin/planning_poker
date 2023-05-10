@@ -5,7 +5,6 @@ import { printUserList } from './printUser';
 import { IUser } from '../models.ts/IUser';
 import { roundFibonacci } from './roundFibonacci';
 
-
 socket.on('connect', () => {
   console.log('socket.on front connected')
 })
@@ -46,6 +45,7 @@ socket.on("voteOver", (currentVotes: Array<any>) => {
 
   const container = document.querySelector("#averageSP") as HTMLHeadingElement;
   container.innerHTML = `Medelvärdet blev: ${closestFibonacci}`;
+
 
   const voteBtns = document.querySelectorAll(".voteBtn");
   voteBtns.forEach(btn => btn.setAttribute("disabled", ""));
