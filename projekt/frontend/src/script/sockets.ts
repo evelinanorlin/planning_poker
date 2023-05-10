@@ -16,7 +16,7 @@ socket.on('userJoined', (userName: string, activeUsers: IUser[]) => {
   printUserList(activeUsers);
 });
 
-socket.on("voteOver", (currentVotes: Array<any>, comingTasks, chosenTask) => {
+socket.on("voteOver", (currentVotes: {voteNumber: string}[], comingTasks, chosenTask) => {
   renderPoints(comingTasks, chosenTask);
 
   const votesArr: number[] = [];
