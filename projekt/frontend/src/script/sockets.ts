@@ -30,11 +30,14 @@ socket.on('userJoined', (userName: string, activeUsers: IUser[]) => {
 
 socket.on("voteOver", (currentVotes: Array<any>) => {
   console.log(currentVotes)
-
   const votesArr: number[] = [];
   currentVotes.map(currentVote => {
-    const vote: number = parseInt(currentVote.voteNumber);
-    votesArr.push(vote)
+    if(currentVote.voteNumber == '?'){
+      console.log('a ?mark')
+    } else {
+      const vote: number = parseInt(currentVote.voteNumber);
+      votesArr.push(vote)
+    }
   })
   
   const reducedNumber = votesArr.reduce((a, b) => Number(a) + Number(b)) / votesArr.length;
