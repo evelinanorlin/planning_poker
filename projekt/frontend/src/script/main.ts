@@ -15,7 +15,7 @@ const app = document.querySelector('#app') as HTMLElement;
 app.innerHTML = `
   <header class='header' id='header'></header>
   <main class='main' id='main'></main>
-  <footer id='footer' class='footer' </footer>`;
+  <footer id='footer' class='footer'><p>&copy; IVAR Medieinstitutet 2023</p> </footer>`;
 
 export function checkLogin() {
   if (sessionStorage.getItem("user")) {
