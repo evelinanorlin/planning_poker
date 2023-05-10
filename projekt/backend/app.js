@@ -142,6 +142,20 @@ io.on('connection', (socket) => {
     io.emit('finishedTasks', finishedTasks);
   });
 
+  socket.on('endSessionBack', () => {
+    let oldTasks = finishedTasks.slice();
+    console.log("Backend");
+    db.collection('tasks').insertOne({ oldTasks }, function(err, result) {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      console.log("Inserted document into the collection");
+      finishedTasks = [];
+      console.log("Cleared finishedTasks array");
+    });
+  });
+
   io.on('disconnect', () => {
     const userId = socket.userId;
     console.log('user ${socket.id} disconnected');

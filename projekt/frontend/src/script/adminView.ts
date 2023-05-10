@@ -16,16 +16,22 @@ export function renderAdmin(tasksArr: any){
           <button id="taskBtn" type="button">Lägg till</button>
         </form>
       </div>
-      <div "flexDiv">
+      <div class="flexDiv">
         <h2>Vilken uppgift ska vi rösta om nu?</h2>
         <div class="tasks">
           <ul id="tasksList" class="tasksList"></ul>
         </div>
         <button>Avsluta session</button>
-        <button>Avsluta och spara session</button>
+        <button type="button" id="finishBtn">Avsluta och spara session</button>
       </div>
     </div>
-    `
+    `;
+  
+    const finishBtn = document.getElementById('finishBtn');
+    if (finishBtn) {
+      finishBtn.addEventListener('click', endSession);
+    }
+
     const taskInput: HTMLInputElement = document.getElementById('taskInput') as HTMLInputElement;
   
     document.getElementById('taskBtn')?.addEventListener('click', () => {
@@ -43,6 +49,12 @@ export function renderAdmin(tasksArr: any){
     adminContainer.innerHTML = '';
   }
 }
+
+function endSession() {
+  socket.emit('endSessionBack');
+  console.log("connection frontend");
+}
+
 
 export function rendertasks(arr: any){
   const tasksList: HTMLElement = document.getElementById('tasksList') as HTMLElement;
