@@ -62,14 +62,10 @@ export function rendertasks(arr: any){
       if (e.target instanceof HTMLElement) {
         const chosenTask: string = e.target.innerHTML;
         arr = arr.filter((task: string) => task !== chosenTask);
-        renderPoints(arr, chosenTask)
 
         //Restore heading
         const container = document.querySelector("#averageSP") as HTMLHeadingElement;
         container.innerHTML = `Hur många SP?`;
-        //Activate voting buttons
-        const voteBtns = document.querySelectorAll(".voteBtn");
-        voteBtns.forEach(btn => btn.removeAttribute("disabled"));
 
         socket.emit('voteTask', chosenTask)
       }
@@ -77,32 +73,38 @@ export function rendertasks(arr: any){
   })
 }
 
-function renderPoints(arr: any, chosenTask: string){
-  console.log(arr, chosenTask)
-  const adminContainer: HTMLElement = document.getElementById('adminContainer') as HTMLElement;
-  adminContainer.innerHTML = `
-  <h3>Hur många SP vill du ge till "${chosenTask}"?</h3>
-  <div class="adminPointsBtns">
-  <button class="pointButton">0</button>
-  <button class="pointButton">1</button>
-  <button class="pointButton">2</button>
-  <button class="pointButton">3</button>
-  <button class="pointButton">5</button>
-  <button class="pointButton">8</button>
-  </div>`;
+export function renderPoints(arr: any, chosenTask: string){
+  const user = JSON.parse(sessionStorage.getItem('user') || "");
 
-  const pointsBtns = document.querySelectorAll('.pointButton');
+  if(user.admin == true){
+    console.log(arr, chosenTask)
+    const adminContainer: HTMLElement = document.getElementById('adminContainer') as HTMLElement;
+    adminContainer.innerHTML = `
+    <h3>Hur många SP vill du ge till "${chosenTask}"?</h3>
+    <div class="adminPointsBtns">
+    <button class="pointButton">0</button>
+    <button class="pointButton">1</button>
+    <button class="pointButton">2</button>
+    <button class="pointButton">3</button>
+    <button class="pointButton">5</button>
+    <button class="pointButton">8</button>
+    </div>`;
 
-  pointsBtns.forEach(btn => {
-    btn.addEventListener('click', (e: Event) => {
-      if (e.target instanceof HTMLElement) {
-      const points: string = e.target.innerHTML;
-      console.log(points);
-      socket.emit('finishedTasks', {'points': points, 'task': chosenTask});
-      
-      renderAdmin(arr);
-      rendertasks(arr);
-      }
+    const pointsBtns = document.querySelectorAll('.pointButton');
+
+    pointsBtns.forEach(btn => {
+      btn.addEventListener('click', (e: Event) => {
+        if (e.target instanceof HTMLElement) {
+        const points: string = e.target.innerHTML;
+        console.log(points);
+        socket.emit('finishedTasks', {'points': points, 'task': chosenTask});
+        
+        renderAdmin(arr);
+        rendertasks(arr);
+        }
+      })
     })
-  })
+  } else {
+    return;
+  }
 }

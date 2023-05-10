@@ -4,6 +4,7 @@ export const socket = io("http://localhost:3000");
 import { printUserList } from './printUser';
 import { IUser } from '../models.ts/IUser';
 import { roundFibonacci } from './roundFibonacci';
+import { renderPoints } from './adminView';
 
 
 socket.on('connect', () => {
@@ -28,8 +29,9 @@ socket.on('userJoined', (userName: string, activeUsers: IUser[]) => {
   
 //   }
 
-socket.on("voteOver", (currentVotes: Array<any>) => {
-  console.log(currentVotes)
+socket.on("voteOver", (currentVotes: Array<any>, comingTasks, chosenTask) => {
+  renderPoints(comingTasks, chosenTask);
+
   const votesArr: number[] = [];
   currentVotes.map(currentVote => {
     if(currentVote.voteNumber == '?'){
