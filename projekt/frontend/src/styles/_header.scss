@@ -2,11 +2,12 @@ header {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 2rem 0 1rem 0;
+  padding: 2rem 0 1rem 1.2rem;
   color: whitesmoke;
   background: rgb(45, 128, 120);
   background: linear-gradient(124deg, rgba(45, 128, 120, 1) 19%, rgba(38, 101, 101, 1) 35%, rgba(28, 64, 76, 1) 100%);
   margin: 0;
+  
 
   h2 {
     margin: 0 0 1rem 2rem;
@@ -43,6 +44,7 @@ header {
   }
 
   .user-admin {
+    color: white;
     font-size: 1rem;
     font-style: normal;
     text-shadow: $primaryDark 4px 0 10px;
