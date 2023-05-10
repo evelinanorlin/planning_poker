@@ -70,11 +70,9 @@ socket.on('finishedTasks', (arg) => {
 
 export function printUserList(usersConnected: IUser[]) {
   const activeUserList: HTMLElement | null = document.querySelector('#activeUsers') as HTMLElement;
-
   if (!activeUserList) {
     return;
   }
-
   activeUserList.innerHTML = usersConnected.map((user: IUser) => {
     if (user.vote) {
       return `<div class='${user.hasVoted ? 'voted' : ''}' data-userid=${user.id}><p id='userName' class='userName'>${user.name}<br>har<br>röstat</p></div>`;
@@ -93,7 +91,6 @@ export function renderUserResult(activeUsers: IUser[]) {
     }
   });
 }
-
 
 export function printTasks(tasks: []) {
   const upcomingTasks: HTMLElement = document.getElementById('upcomingTasks') as HTMLElement;

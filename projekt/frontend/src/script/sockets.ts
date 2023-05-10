@@ -5,29 +5,16 @@ import { printUserList } from './printUser';
 import { IUser } from '../models.ts/IUser';
 import { roundFibonacci } from './roundFibonacci';
 import { renderPoints } from './adminView';
-import { renderUserresult } from './printUser';
+import { renderUserResult } from './printUser';
 
 socket.on('connect', () => {
   console.log('socket.on front connected')
 })
 
-// socket.on('disconnect', () => {
-//   const user = JSON.parse(sessionStorage.getItem('user') as string);
-//   if (user) {
-//     socket.emit('userDisconnected', user.id);
-//   }
-// });
-
 socket.on('userJoined', (userName: string, activeUsers: IUser[]) => {
   console.log(`${userName} has joined the game! Active Users: ${JSON.stringify(activeUsers)}`);
   printUserList(activeUsers);
 });
-
-// export function userToSocket(data: IUser) {
-//   const user = { id: data.id, name: data.name };
-//   console.log(user);
-  
-//   }
 
 socket.on("voteOver", (currentVotes: Array<any>, comingTasks, chosenTask, activeUsers: IUser[]) => {
   renderPoints(comingTasks, chosenTask);
@@ -53,6 +40,6 @@ socket.on("voteOver", (currentVotes: Array<any>, comingTasks, chosenTask, active
   const voteBtns = document.querySelectorAll(".voteBtn");
   voteBtns.forEach(btn => btn.setAttribute("disabled", ""));
 
-  renderUserresult(activeUsers);
+  renderUserResult(activeUsers);
 })
 
