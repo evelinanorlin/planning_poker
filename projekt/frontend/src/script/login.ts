@@ -7,29 +7,39 @@ export function printLogin() {
   const main = document.querySelector('#main');
   if (main != undefined) {
     main.innerHTML = `
-    <h1>Förenkla ditt agila arbetsflöde med Ivars PlaneringsPoker</h1>
+    <div class="main-container">
+    <h1>Förenkla ditt <span class= 'text-agile'>agila arbetsflöde</span> med Ivars PlaneringsPoker</h1>
     <div class="main-content">
       <div id="loginContainer">
         <form id="loginUser">
           <h4>Logga in:</h4>
           <div id="loginMessage"></div>
-          <input id="loginUsername" type="text" placeholder="Användarnamn">
+          <label for="loginUsername">
+            <input id="loginUsername" type="text" placeholder="Användarnamn">
+          </label>
           <br>
-          <input id="loginPassword" type="password" placeholder="Lösenord">
+          <label for="loginPassword">
+            <input id="loginPassword" type="password" placeholder="Lösenord">
+          </label>
           <br>
           <button>Logga in</button>
         </form>
         <form id="createUser">
           <h4>Skapa användare:</h4>
           <div id="createMessage"></div>
-          <input id="createUsername" type="text" placeholder="Användarnamn">
+          <label for="createUsername">
+            <input id="createUsername" type="text" placeholder="Användarnamn">
+          </label>
           <br>
-          <input id="createPassword" type="password" placeholder="Lösenord">
+          <label for="createPassword">
+            <input id="createPassword" type="password" placeholder="Lösenord">
+          </label>
           <br>
           <button>Skapa</button>
         </form>
       </div> 
       <img class="login-img" alt="gamecards" src="/public/poker-hand-svgrepo-com.svg"/>
+    </div>
     </div>
   `;
   }

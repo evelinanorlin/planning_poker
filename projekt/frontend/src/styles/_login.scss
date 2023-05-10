@@ -1,22 +1,24 @@
-main {
+.main-container {
   max-width: 375px;
   margin: 0 auto;
+  font-family: $secondaryFont;
+  font-size: 1rem;
+
 
   h1 {
     font-size: 1.5rem;
   }
 
   #loginContainer {
+    margin: 0;
     width: 375px;
-    // margin-left: 2rem; 
-    // margin: 0 auto;
     padding: 24px;
     display: flex;
     flex-direction: column;
-    // align-items: center;
     border: 1px solid black;
-    // border-radius: 20px;
     box-shadow: 1px 1px 2px 2px lightgrey;
+    margin-bottom: 1rem;
+
 
     h4 {
       margin: 0;
@@ -25,6 +27,7 @@ main {
 
     form {
       margin-bottom: 20px;
+      font-family: $primaryFont;
     }
 
     button,
@@ -34,7 +37,6 @@ main {
       padding: 0;
       height: 35px;
       margin-top: 16px;
-      font-family: $primaryFont;
       border-radius: 0;
       border: 1px solid $primaryDark;
     }
@@ -48,25 +50,34 @@ main {
     }
   }
 
+  .text-agile {
+    font-family: $primaryFont;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.3rem;
+    font-style: normal;
+    color: $accessoryColor;
+  }
+
   .login-img {
     margin-top: 0.5rem;
     width: 50px;
     display: block;
     margin-left: auto;
     margin-right: auto;
-
+    padding: 0 0 4rem 0;
   }
 }
 
 
 @media screen and (min-width: 768px) {
 
-  main {
+.main-container {
     max-width: 700px;
-    margin: 0 auto;
 
     h1 {
       font-size: 2rem;
+      margin-bottom: 0;
     }
 
     .main-content {
@@ -78,30 +89,29 @@ main {
       margin-bottom: 2rem;
     }
 
+    .text-agile {
+      font-size: 1.65rem;
+      text-shadow: whitesmoke 4px 0 10px;
+    }
+
     .login-img {
-
       width: 300px;
-
     }
   }
 }
 
 @media screen and (min-width: 992px) {
 
-  main {
+.main-container {
     max-width: 900px;
     margin: 0 auto;
-    
-    h1 {
-      max-width: 100%;
-      font-size: 2.5rem;
 
+    h1 {
+      font-size: 2.5rem;
     }
 
-  .login-img {
-    width: 500px;
+    .login-img {
+      width: 500px;
+    }
   }
-  }
-
-
 }
