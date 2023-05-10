@@ -1,5 +1,5 @@
 export function roundFibonacci(value: number){
-  const fibonaccis: number[] = [8, 5, 3, 2, 1, 0];
+  const fibonaccis: number[] = [8, 5, 3, 1, 0];
   const distanceFibonacci: number[] = [];
 
   fibonaccis.map(fibonacci => {
