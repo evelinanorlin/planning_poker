@@ -1,14 +1,14 @@
 console.log("were connected");
 import '../styles/style.scss';
 import { io } from 'socket.io-client';
-const socket = io("http://localhost:3000");
-
 import { renderHeader } from './header';
 import { printLogin } from './login';
 import { renderAdmin } from './adminView'
 import { printUser } from './printUser';
 import { printTasks } from './printUser';
 import { printFinishedTasks } from './printUser';
+
+const socket = io("http://localhost:3000");
 
 const app = document.querySelector('#app') as HTMLElement;
 app.innerHTML = `

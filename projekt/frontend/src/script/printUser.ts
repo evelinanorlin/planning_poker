@@ -24,7 +24,9 @@ export function printUser() {
           <button class="voteBtn">8</button>
           <button class="voteBtn">?</button>
         </div>
-        <div id="activeUsers" class="activeUsers"></div>
+        <div id="activeUsers" class="activeUsers">
+          <div id="userVote">
+        </div>
       </div>
         <div id="nextIssuesDiv" class="issuesCont">
           <h1>Kommande issues:</h1>
@@ -42,10 +44,13 @@ export function printUser() {
     btn.addEventListener("click", (e: Event)=> {
       const element = e.currentTarget as HTMLButtonElement;
       const value = element.innerText;
+     
 
       if (sessionStorage.getItem("user")) {
-          const user = JSON.parse(sessionStorage.getItem("user") || '');
+        const user = JSON.parse(sessionStorage.getItem("user") || '');
+        console.log(user.id + ' has voted ' + value + ' SP');
           socket.emit("userVoted", value, user);
+
         }
     })
   })
@@ -75,6 +80,7 @@ export function printUser() {
   // });
 }
 
+
 socket.on('addTask', (arg: []) => {
   printTasks(arg)
 })
@@ -93,18 +99,23 @@ socket.on('finishedTasks', (arg) =>{
   printFinishedTasks(arg)
 })
 
-
 export function printUserList(usersConnected:  IUser[]) {
+  console.log(usersConnected);
   const activeUserList: HTMLElement | null = document.querySelector('#activeUsers') as HTMLElement;
 
   if (!activeUserList) {
     return;
   }
-  
-  activeUserList.innerHTML = usersConnected.map((user: IUser) => 
-  `<div><p>${user.name}</p></div>`).join('');
-  }
-  
+    
+  activeUserList.innerHTML = usersConnected.map((user: IUser) => {  
+    if (user.vote) {
+      return `<div class="${user.hasVoted ? 'voted' : ''}" data-userid=${user.id}><p id="userName" class="userName">${user.name}<br>röstar på<br>${user.vote} SP</p></div>`;
+    } else {
+      return `<div class="${user.hasVoted ? 'voted' : ''}" data-userid=${user.id}><p id="userName" class="userName">${user.name}<br>har inte<br>röstat än</p></div>`;
+    }
+  }).join('');
+}
+
 export function printTasks(tasks: []){
   const upcomingTasks: HTMLElement = document.getElementById('upcomingTasks') as HTMLElement;
   upcomingTasks.innerHTML = '';
@@ -119,6 +130,7 @@ function showTask(task: string){
   const currentTask: HTMLElement = document.getElementById('currentTask') as HTMLElement;
   currentTask.innerHTML = task;
 }
+
 function showPoints(pointsGiven: any){
   const currentTask: HTMLElement = document.getElementById('currentTask') as HTMLElement;
   currentTask.innerHTML = `
