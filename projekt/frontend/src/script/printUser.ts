@@ -69,7 +69,6 @@ socket.on('finishedTasks', (arg) => {
 })
 
 export function printUserList(usersConnected: IUser[]) {
-  console.log(usersConnected);
   const activeUserList: HTMLElement | null = document.querySelector('#activeUsers') as HTMLElement;
 
   if (!activeUserList) {
@@ -85,18 +84,9 @@ export function printUserList(usersConnected: IUser[]) {
   }).join('');
 }
 
-export function renderUserresult(activeUsers: IUser[]) {
-  const activeUsersContainer = document.querySelector('#activeUsers');
-
-  // if (activeUsersContainer) {
-  //   const userDivs = activeUsersContainer.querySelectorAll('div');
-  //   userDivs.forEach((div) => div.classList.add('result'));
-  // }
-
+export function renderUserResult(activeUsers: IUser[]) {
   activeUsers.map((user: IUser) => {
-    console.log(user.id);
     const userDiv = document.querySelector(`div[data-userid='${user.id}']`);
-    console.log(userDiv);
     if (userDiv) {
       userDiv.innerHTML = `<p id='userName' class='userName'>${user.name}<br>röstar på<br>${user.vote} SP</p>`;
       userDiv.classList.add('result');
