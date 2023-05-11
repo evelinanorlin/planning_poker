@@ -7,7 +7,6 @@ import { printUser, printUserList } from './printUser';
 import { printTasks } from './printUser';
 import { printFinishedTasks } from './printUser';
 import { showTask } from './printUser';
-import { activeUsers } from './printUser';
 
 
 const app = document.querySelector('#app') as HTMLElement;
@@ -17,6 +16,7 @@ app.innerHTML = `
   <footer id='footer' class='footer'><p>&copy; IVAR Medieinstitutet 2023</p> </footer>`;
 
 export function checkLogin() {
+  console.log('check')
   if (sessionStorage.getItem("user")) {
     printUser();
 
@@ -49,13 +49,11 @@ export function checkLogin() {
     printLogin();
     showTask('Inget att rösta på just nu');
   }
-
-console.log("checkLogin");
-
 }
 
-socket.on('sessionEnded', function(){
-  printUser();
+socket.on('sessionEnded', (activeUsers) => {
+  checkLogin();
+  printUserList(activeUsers);
 });
 
 const init = () => {

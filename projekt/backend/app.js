@@ -63,7 +63,6 @@ io.on('connection', (socket) => {
     console.log(`User ${user.id} with name ${user.name} logged in`);
     activeUsers.push(user);
     socket.userId = user.id;
-    console.log(activeUsers);
 
     io.emit('userJoined', user.name, activeUsers);
   });
@@ -75,7 +74,6 @@ io.on('connection', (socket) => {
       activeUsers.splice(index, 1);
       io.emit('activeUsersUpdated', activeUsers);
     }
-    console.log(activeUsers);
   });
 
   socket.on('disconnect', () => {
@@ -84,17 +82,7 @@ io.on('connection', (socket) => {
       activeUsers.splice(index, 1);
       io.emit('activeUsersUpdated', activeUsers);
     }
-    console.log(activeUsers);
   });
-
-  // socket.on('userDisconnected', (userId) => {
-  //   console.log(`User ${userId} is diconnected`);
-  //   const index = activeUsers.findIndex((user) => user.id === userId);
-  //   if (index !== -1) {
-  //     activeUsers.splice(index, 1);
-  //     io.emit('activeUsersUpdated', activeUsers);
-  //   }
-  // });
 
   socket.on('loadSite', (arg) => {
     io.emit('loadSite', tasksArr, finishedTasks, currentTask);
@@ -109,7 +97,6 @@ io.on('connection', (socket) => {
     currentTask = arg;
     currentVotes = [];
     activeUsers.forEach((user) => (user.hasVoted = false));
-    console.log(activeUsers);
     tasksArr = tasksArr.filter((task) => task !== arg);
     io.emit('voteTask', { arr: tasksArr, task: arg }, activeUsers);
   });
@@ -146,14 +133,11 @@ io.on('connection', (socket) => {
 
   socket.on('endSessionAndSaveBack', () => {
     let oldTasks = finishedTasks.slice();
-    console.log("Backend");
-    console.log(oldTasks)
     db.collection('tasks').insertOne({ oldTasks }, function(err, result) {
       if (err) {
         console.log(err);
         return;
       }
-      console.log("Inserted document into the collection");
       tasksArr = [];
       finishedTasks = [];
       currentVotes = [];
@@ -161,16 +145,13 @@ io.on('connection', (socket) => {
       activeUsers.forEach((user) => {
         user.hasVoted = false;
       });
-      console.log("Cleared finishedTasks array");
       io.emit('loadSite', tasksArr, finishedTasks);
-      io.emit('sessionEnded');
+      io.emit('sessionEnded', activeUsers);
     });
   });
   
   socket.on('endSessionBack', () => {
     let oldTasks = finishedTasks.slice();
-    console.log("Backend");
-    console.log(oldTasks)
     tasksArr = [];
     finishedTasks = [];
     currentVotes = [];
@@ -179,18 +160,9 @@ io.on('connection', (socket) => {
       user.hasVoted = false;
       user.vote = "";
     });
-    console.log(activeUsers);
-    console.log("Cleared finishedTasks array");
     io.emit('loadSite', tasksArr, finishedTasks);
-    io.emit('sessionEnded');
+    io.emit('sessionEnded', activeUsers);
   });
-  
-  
-
-// socket.on('triggerShowTasks', function() {
-//   showTask();
-// });
-
 
   io.on('disconnect', () => {
     const userId = socket.userId;
