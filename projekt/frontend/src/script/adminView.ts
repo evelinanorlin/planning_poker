@@ -11,7 +11,7 @@ export function renderAdmin(tasksArr: string[]){
       <div class="flexDiv">
         <h2>Vad ska vi rösta om idag?</h2>
         <form onsubmit="return false">
-          <label for="task">Lägg till uppgift:</label><br>
+          <label for="taskInput">Lägg till uppgift:</label><br>
           <input type="text" id="taskInput" name="task"><br>
           <button id="taskBtn" type="button">Lägg till</button>
         </form>

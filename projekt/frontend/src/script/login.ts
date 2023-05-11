@@ -4,30 +4,43 @@ import { checkLogin } from './main';
 const BASE_URL = 'http://localhost:3000';
 
 export function printLogin() {
-    const main = document.querySelector('#main');
-    if(main != undefined) {
+  const main = document.querySelector('#main');
+  if (main != undefined) {
     main.innerHTML = `
-    <h1>Ivar's Planeringspoker</h1>
-    <div id="loginContainer">
-    <form id="loginUser">
-      <h4>Logga in:</h4>
-      <div id="loginMessage"></div>
-      <input id="loginUsername" type="text" placeholder="Användarnamn">
-      <br>
-      <input id="loginPassword" type="password" placeholder="Lösenord">
-      <br>
-      <button>Logga in</button>
-    </form>
-    <form id="createUser">
-      <h4>Skapa användare:</h4>
-      <div id="createMessage"></div>
-      <input id="createUsername" type="text" placeholder="Användarnamn">
-      <br>
-      <input id="createPassword" type="password" placeholder="Lösenord">
-      <br>
-      <button>Skapa</button>
-    </form>
-    </div> 
+    <div class="main-container">
+    <h1>Förenkla ditt <span class= 'text-agile'>agila arbetsflöde</span> med Ivars PlaneringsPoker</h1>
+    <div class="main-content">
+      <div id="loginContainer">
+        <form id="loginUser">
+          <h4>Logga in:</h4>
+          <div id="loginMessage"></div>
+          <label for="loginUsername">
+            <input id="loginUsername" type="text" placeholder="Användarnamn">
+          </label>
+          <br>
+          <label for="loginPassword">
+            <input id="loginPassword" type="password" placeholder="Lösenord">
+          </label>
+          <br>
+          <button>Logga in</button>
+        </form>
+        <form id="createUser">
+          <h4>Skapa användare:</h4>
+          <div id="createMessage"></div>
+          <label for="createUsername">
+            <input id="createUsername" type="text" placeholder="Användarnamn">
+          </label>
+          <br>
+          <label for="createPassword">
+            <input id="createPassword" type="password" placeholder="Lösenord">
+          </label>
+          <br>
+          <button>Skapa</button>
+        </form>
+      </div> 
+      <img class="login-img" alt="gamecards" src="/public/poker-hand-svgrepo-com.svg"/>
+    </div>
+    </div>
   `;
   }
 
@@ -37,7 +50,7 @@ export function printLogin() {
   const createUserForm = document.querySelector('#createUser');
   createUserForm?.addEventListener('submit', createUser);
 }
-  
+
 function loginUser(e: Event) {
   e.preventDefault();
   const name = (document.querySelector('#loginUsername') as HTMLInputElement).value;

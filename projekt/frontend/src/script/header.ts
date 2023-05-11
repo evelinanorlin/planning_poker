@@ -7,13 +7,10 @@ export function renderHeader() {
   headerElement.innerHTML = '';
   
   if (headerElement != undefined) {
-    const title: HTMLHeadingElement = document.createElement('h1');
+    const title: HTMLHeadingElement = document.createElement('h2');
     title.textContent = 'Ivars PlaneringsPoker';
-
     const logOutBtn: HTMLButtonElement = document.createElement('button');
-
     const user = JSON.parse(sessionStorage.getItem('user') as string);
-
     const main: HTMLElement = document.querySelector('#main') as HTMLElement;
     
     if (user) {
@@ -29,7 +26,6 @@ export function renderHeader() {
           const user = JSON.parse(sessionStorage.getItem('user') as string);
           if (user) {
             socket.emit('userLoggedOut', user.id);
-            console.log(user.id)
           }
 
           sessionStorage.removeItem("user");
