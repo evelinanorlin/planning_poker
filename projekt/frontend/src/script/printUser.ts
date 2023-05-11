@@ -1,6 +1,9 @@
 import { io } from 'socket.io-client';
 import { IUser } from '../models.ts/IUser';
+
 const socket = io("http://localhost:3000");
+
+
 
 export function printUser() {
   const main: HTMLElement = document.querySelector('#main') as HTMLElement;
@@ -121,3 +124,5 @@ export function printFinishedTasks(tasks: []) {
   <li>${currTask.task}, ${currTask.points} SP</li>`;
   })
 }
+
+export const activeUsers: IUser[] = [];

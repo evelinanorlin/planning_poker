@@ -16,6 +16,8 @@ socket.on('userJoined', (userName: string, activeUsers: IUser[]) => {
   printUserList(activeUsers);
 });
 
+
+
 socket.on("voteOver", (currentVotes: {voteNumber: string}[], comingTasks, chosenTask, activeUsers: IUser[]) => {
   renderPoints(comingTasks, chosenTask);
 
