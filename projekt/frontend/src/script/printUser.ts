@@ -11,12 +11,12 @@ export function printUser() {
         <h1 id="currentTask">Ingen task just nu</h1>
         <h2 id="averageSP">Hur många SP?</h2>
         <div class="voteBtns">
-          <button class="voteBtn">0</button>
-          <button class="voteBtn">1</button>
-          <button class="voteBtn">3</button>
-          <button class="voteBtn">5</button>
-          <button class="voteBtn">8</button>
-          <button class="voteBtn">?</button>
+          <button class="voteBtn" disabled>0</button>
+          <button class="voteBtn" disabled>1</button>
+          <button class="voteBtn" disabled>3</button>
+          <button class="voteBtn" disabled>5</button>
+          <button class="voteBtn" disabled>8</button>
+          <button class="voteBtn" disabled>?</button>
         </div>
         <div id="activeUsers" class="activeUsers"></div>
       </div>
