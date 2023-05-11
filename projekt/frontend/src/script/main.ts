@@ -7,7 +7,6 @@ import { printUser, printUserList } from './printUser';
 import { printTasks } from './printUser';
 import { printFinishedTasks } from './printUser';
 import { showTask } from './printUser';
-import { activeUsers } from './printUser';
 
 
 const app = document.querySelector('#app') as HTMLElement;
