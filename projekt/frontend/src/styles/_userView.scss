@@ -1,0 +1,133 @@
+#votingContainer{
+  text-align: center;
+  width: 80%;
+  margin: 0 auto;
+  padding: 0 0 5rem 0;
+  
+  .voteBtns{
+    display: flex;
+    justify-content: space-between;
+
+    button{
+      cursor: pointer;
+      background: rgb(244,217,174);
+      background: linear-gradient(36deg, rgba(244,217,174,1) 75%, rgba(222,158,70,0.75) 27%); 
+      border: 4px solid $primaryLight;
+      font-size: 2rem;
+      width: 50px;
+      height: 50px;
+
+      &:hover {
+        scale: 1.1;
+      }
+
+      &:disabled {
+        scale: 1;
+      }
+    }
+  }
+
+  .issuesCont1, .issuesCont2{
+    background: $primaryDark;
+    color: white;
+    height: 300px;
+    padding: 15px 0;
+    margin-top: 30px;
+    overflow-y: scroll;
+
+    ul{
+      text-align: left;
+    }
+  }
+
+  .activeUsers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 10px;
+    margin-top: 30px;
+
+    div {
+      background: whitesmoke;
+      width: 100px;
+      height: 100px;
+      color: $primaryDark;
+    }
+
+    div.voted {
+      background: rgb(222,158,70);
+      background: linear-gradient(139deg, rgba(222,158,70,1) 41%, rgba(205,79,65,1) 84%); 
+      color: whitesmoke;
+      font-weight: bold;
+      text-shadow: $accessoryColor 4px 0 10px;
+
+    }
+  
+    div.result {
+      background: rgb(45, 128, 120);
+      background: linear-gradient(124deg, rgba(45, 128, 120, 1) 19%, rgba(38, 101, 101, 1) 35%, rgba(28, 64, 76, 1) 100%);
+      color: whitesmoke;
+      font-weight: bold;
+      text-shadow: $primaryDark 4px 0 10px;
+    }
+  }
+  
+
+}
+
+@media screen and (min-width: 768px){
+  #votingContainer{
+    width: 80%;
+    display: grid;
+    grid-template-areas: 
+    "vote vote"
+    "coming result";
+    grid-gap: 20px;
+
+    .voting{
+      grid-area: vote;
+      .voteBtns{
+        button{
+          font-size: 3rem;
+          width: 75px;
+          height: 75px;
+        }
+      }
+    }
+    .issuesCont1{
+      grid-area: coming;
+    }
+
+    .issuesCont2{
+      grid-area: result;
+    }
+  }
+}
+
+@media screen and (min-width: 992px){
+  #votingContainer{
+    width: 100%;
+    height: 100vh;
+    grid-template-areas: "coming vote result";
+    margin: 0;
+    padding: 0;
+
+    .voting{
+      grid-area: vote;
+    }
+  
+    .issuesCont1, .issuesCont2{
+      margin: 0;
+      padding:0;
+      height: 100vh;
+    }
+
+    .issuesCont1{
+      grid-area: coming;
+    }
+    
+    .issuesCont2{
+      grid-area: result;
+    }
+  }
+}

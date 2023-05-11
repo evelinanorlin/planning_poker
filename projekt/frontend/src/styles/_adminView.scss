@@ -1,9 +1,16 @@
 .adminContainer{
   width: 80%;
-  margin: 0 auto;
+  margin: 0 auto 2rem auto;
   button{
     display: block;
     border: 1px solid black;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-transform: uppercase;
+
+    &:hover {
+        font-weight: bold;
+    }
   }
   button, input{
     width: 100%;
@@ -11,11 +18,13 @@
     padding: 0;
     height: 35px;
     margin-top: 16px;
+    font-family: $primaryFont;
   }
 
   .tasks{
-    background: gray;
-    height: 300px;
+    background: $primaryDark;
+    color: white;
+    height: 100px;
     overflow-y: scroll;
 
     .tasksList{
@@ -27,8 +36,20 @@
       }
     }
   }
-}
+  .adminPointsBtns{
+    width: 80%;
+    max-width: 800px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
 
+    button{
+      border: none;
+      background: transparent;
+      font-size: 2rem;
+    }
+  }
+}
 
  
 

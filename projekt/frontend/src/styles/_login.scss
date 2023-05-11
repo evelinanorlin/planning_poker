@@ -1,35 +1,117 @@
-*, *:before, *:after {
-  box-sizing: border-box;
-}
-
-
-
-h1 {
-  text-align: center;
-}
-
-#loginContainer {
-  width: 400px;
-  height: 400px;
+.main-container {
+  max-width: 375px;
   margin: 0 auto;
-  padding-top: 60px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 1px solid black;
-  border-radius: 20px;
-  box-shadow: 1px 1px 2px 2px lightgrey;
+  font-family: $secondaryFont;
+  font-size: 1rem;
 
-  h4 {
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  #loginContainer {
     margin: 0;
-    margin-bottom: 20px;
+    width: 375px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    box-shadow: 1px 1px 2px 2px lightgrey;
+    margin-bottom: 1rem;
+
+
+    h4 {
+      margin: 0;
+      margin-bottom: 20px;
+    }
+
+    form {
+      margin-bottom: 20px;
+      font-family: $primaryFont;
+    }
+
+    button,
+    input {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      height: 35px;
+      margin-top: 16px;
+      border-radius: 0;
+      border: 1px solid $primaryDark;
+    }
+
+    button:hover {
+      font-weight: bold;
+    }
+
+    input {
+      padding-inline: 1rem;
+    }
   }
 
-  form {
-    margin-bottom: 20px;
+  .text-agile {
+    font-family: $primaryFont;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.3rem;
+    font-style: normal;
+    color: $accessoryColor;
   }
 
-  input {
-    margin-bottom: 5px;
+  .login-img {
+    margin-top: 0.5rem;
+    width: 50px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 0 4rem 0;
+  }
+}
+
+
+@media screen and (min-width: 768px) {
+
+.main-container {
+    max-width: 700px;
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0;
+    }
+
+    .main-content {
+      display: flex;
+      align-items: center;
+    }
+
+    #loginContainer {
+      margin-bottom: 2rem;
+    }
+
+    .text-agile {
+      font-size: 1.65rem;
+      text-shadow: whitesmoke 4px 0 10px;
+    }
+
+    .login-img {
+      width: 300px;
+    }
+  }
+}
+
+@media screen and (min-width: 992px) {
+
+.main-container {
+    max-width: 900px;
+    margin: 0 auto;
+
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    .login-img {
+      width: 500px;
+    }
   }
 }

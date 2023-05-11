@@ -1,16 +1,17 @@
 import { checkLogin } from "./main";
+import { socket } from './sockets';
+import { printUserList } from "./printUser";
 
 export function renderHeader() {
   const headerElement = document.querySelector('#header') as HTMLElement;
   headerElement.innerHTML = '';
   
   if (headerElement != undefined) {
-    const title = document.createElement('h1') as HTMLElement;
+    const title: HTMLHeadingElement = document.createElement('h2');
     title.textContent = 'Ivars PlaneringsPoker';
-
-    const logOutBtn = document.createElement('button') as HTMLButtonElement;
-
-    const user = JSON.parse(localStorage.getItem('user') as string);
+    const logOutBtn: HTMLButtonElement = document.createElement('button');
+    const user = JSON.parse(sessionStorage.getItem('user') as string);
+    const main: HTMLElement = document.querySelector('#main') as HTMLElement;
     
     if (user) {
       if (user.admin) {
@@ -22,10 +23,19 @@ export function renderHeader() {
         logOutBtn.innerText = 'Logga Ut';
 
         logOutBtn.addEventListener('click', () => {
-          localStorage.removeItem("user");
+          const user = JSON.parse(sessionStorage.getItem('user') as string);
+          if (user) {
+            socket.emit('userLoggedOut', user.id);
+          }
+
+          sessionStorage.removeItem("user");
           headerElement.innerHTML = '';
+          main.innerHTML = '';
           checkLogin();
           renderHeader();
+        });
+        socket.on('activeUsersUpdated', (activeUsers) => {
+          printUserList(activeUsers);
         });
 
       headerElement.appendChild(logOutBtn);
@@ -34,6 +44,3 @@ export function renderHeader() {
     headerElement.prepend(title);
   }
 }
-
-
- 
