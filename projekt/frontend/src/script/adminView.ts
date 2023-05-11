@@ -1,5 +1,4 @@
-import { io } from 'socket.io-client';
-const socket = io("http://localhost:3000");
+import { socket } from './sockets';
 
 export function renderAdmin(tasksArr: string[]){
   const adminContainer: HTMLElement = document.getElementById('adminContainer') as HTMLElement;
@@ -26,18 +25,17 @@ export function renderAdmin(tasksArr: string[]){
       </div>
     </div>
     `;
-  
+    const taskInput: HTMLInputElement = document.getElementById('taskInput') as HTMLInputElement;
     const finishAndSaveBtn = document.getElementById('finishAndSaveBtn');
+    const finishBtn = document.getElementById('finishBtn');
+  
     if (finishAndSaveBtn) {
       finishAndSaveBtn.addEventListener('click', endSessionAndSave);
     }
 
-    const finishBtn = document.getElementById('finishBtn');
     if (finishBtn) {
       finishBtn.addEventListener('click', endSession);
     }
-
-    const taskInput: HTMLInputElement = document.getElementById('taskInput') as HTMLInputElement;
 
     taskInput.addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
@@ -60,14 +58,11 @@ export function renderAdmin(tasksArr: string[]){
 
 function endSession() {
   socket.emit('endSessionBack');
-  console.log("connection frontend end sess");
 }
 
 function endSessionAndSave() {
   socket.emit('endSessionAndSaveBack');
-  console.log("connection frontendend sess and save");
 }
-
 
 export function rendertasks(arr: string[]){
   const tasksList: HTMLElement = document.getElementById('tasksList') as HTMLElement;
@@ -84,6 +79,7 @@ export function rendertasks(arr: string[]){
 
   allTasks.forEach((task) => {
     task.addEventListener('click', (e: Event) => {
+      
       if (e.target instanceof HTMLElement) {
         const chosenTask: string = e.target.innerHTML;
         arr = arr.filter((task: string) => task !== chosenTask);
