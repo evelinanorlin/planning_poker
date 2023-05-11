@@ -38,17 +38,21 @@ export function renderAdmin(tasksArr: string[]){
     }
 
     const taskInput: HTMLInputElement = document.getElementById('taskInput') as HTMLInputElement;
+
+    taskInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        if(taskInput.value){
+          addTask(taskInput, tasksArr)
+        } else return;
+      }
+    })
   
     document.getElementById('taskBtn')?.addEventListener('click', () => {
       if(taskInput.value){
-        const task: string = taskInput.value;
-        tasksArr.push(task)
-        taskInput.value = ``;
-        rendertasks(tasksArr);
-        socket.emit('addTask', task);
+        addTask(taskInput, tasksArr)
       } else return;
     })
-    rendertasks(tasksArr);
+
   } else{
     adminContainer.innerHTML = '';
   }
@@ -92,6 +96,16 @@ export function rendertasks(arr: string[]){
       }
     })
   })
+}
+
+function addTask(taskInput: HTMLInputElement, tasksArr: string[]){
+  if(taskInput.value){
+    const task: string = taskInput.value;
+    tasksArr.push(task)
+    taskInput.value = ``;
+    rendertasks(tasksArr);
+    socket.emit('addTask', task);
+  } else return;
 }
 
 export function renderPoints(arr: string[], chosenTask: string){

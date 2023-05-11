@@ -42,7 +42,6 @@ export function printUser() {
         const user = JSON.parse(sessionStorage.getItem('user') || '');
         console.log(user.id + ' has voted ' + value + ' SP');
         socket.emit('userVoted', value, user);
-
       }
     })
   })
