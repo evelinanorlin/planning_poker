@@ -34,7 +34,7 @@ socket.on("voteOver", (currentVotes: {voteNumber: string}[], comingTasks, chosen
   const closestFibonacci = roundFibonacci(reducedNumber);
 
   const container = document.querySelector("#averageSP") as HTMLHeadingElement;
-  container.innerHTML = `Medelvärdet blev: ${closestFibonacci}`;
+  container.innerHTML = `Fibonaccimedel blev: ${closestFibonacci} SP`;
 
 
   const voteBtns = document.querySelectorAll(".voteBtn");
