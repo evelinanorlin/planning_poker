@@ -53,8 +53,17 @@
       height: 100px;
       color: $primaryDark;
     }
-  
+
     div.voted {
+      background: rgb(222,158,70);
+      background: linear-gradient(139deg, rgba(222,158,70,1) 41%, rgba(205,79,65,1) 84%); 
+      color: whitesmoke;
+      font-weight: bold;
+      text-shadow: $accessoryColor 4px 0 10px;
+
+    }
+  
+    div.result {
       background: rgb(45, 128, 120);
       background: linear-gradient(124deg, rgba(45, 128, 120, 1) 19%, rgba(38, 101, 101, 1) 35%, rgba(28, 64, 76, 1) 100%);
       color: whitesmoke;
