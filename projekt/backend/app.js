@@ -180,7 +180,6 @@ io.on('connection', (socket) => {
       user.vote = "";
     });
     console.log(activeUsers);
-
     console.log("Cleared finishedTasks array");
     io.emit('loadSite', tasksArr, finishedTasks);
     io.emit('sessionEnded');

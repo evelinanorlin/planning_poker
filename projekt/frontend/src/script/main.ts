@@ -3,10 +3,12 @@ import { socket } from "./sockets";
 import { renderHeader } from './header';
 import { printLogin } from './login';
 import { renderAdmin } from './adminView'
-import { printUser } from './printUser';
+import { printUser, printUserList } from './printUser';
 import { printTasks } from './printUser';
 import { printFinishedTasks } from './printUser';
 import { showTask } from './printUser';
+import { activeUsers } from './printUser';
+
 
 const app = document.querySelector('#app') as HTMLElement;
 app.innerHTML = `
@@ -53,8 +55,7 @@ console.log("checkLogin");
 }
 
 socket.on('sessionEnded', function(){
-  checkLogin()
-  printUser()
+  printUser();
 });
 
 const init = () => {
