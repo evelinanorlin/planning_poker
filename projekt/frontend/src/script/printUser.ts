@@ -37,7 +37,6 @@ export function printUser() {
       const element = e.currentTarget as HTMLButtonElement;
       const value = element.innerText;
 
-
       if (sessionStorage.getItem('user')) {
         const user = JSON.parse(sessionStorage.getItem('user') || '');
         console.log(user.id + ' has voted ' + value + ' SP');
@@ -101,7 +100,6 @@ export function printTasks(tasks: []) {
 }
 
 export function showTask(task: string) {
-  //Activate voting buttons
   const voteBtns = document.querySelectorAll(".voteBtn");
   voteBtns.forEach(btn => btn.removeAttribute("disabled"));
 
@@ -109,7 +107,7 @@ export function showTask(task: string) {
   currentTask.innerHTML = task;
 }
 
-function showPoints(pointsGiven: any) {
+function showPoints(pointsGiven: {task: string, points: string}) {
   const currentTask: HTMLElement = document.getElementById('currentTask') as HTMLElement;
   currentTask.innerHTML = `
   Scrum-master gav "${pointsGiven.task}" ${pointsGiven.points} SP`;
@@ -118,7 +116,7 @@ function showPoints(pointsGiven: any) {
 export function printFinishedTasks(tasks: []) {
   const finishedTasksLi: HTMLElement = document.getElementById('finishedTasks') as HTMLElement;
   finishedTasksLi.innerHTML = '';
-  tasks.map((currTask: any) => {
+  tasks.map((currTask: {task: string, points: string}) => {
     finishedTasksLi.innerHTML += `
   <li>${currTask.task}, ${currTask.points} SP</li>`;
   })

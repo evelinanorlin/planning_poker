@@ -44,6 +44,3 @@ export function renderHeader() {
     headerElement.prepend(title);
   }
 }
-
-
- 
