@@ -20,25 +20,42 @@ export function checkLogin() {
 
     socket.emit('loadSite');
 
-    socket.on('loadSite', (coming, finished, current) => {
-      console.log(current)
+    socket.on('loadSite', (coming, finished, current, hideCurrentTask) => { 
       renderAdmin(coming);
       printTasks(coming);
       printFinishedTasks(finished);
       if(current){
         showTask(current);
       } else{
-        showTask('Inget att rösta på');
-        const voteBtns = document.querySelectorAll(".voteBtn");
-        voteBtns.forEach(btn => btn.setAttribute("disabled", ""));
+        if (hideCurrentTask) { // new if-statement added here
+          showTask('Inget att rösta på');
+          const voteBtns = document.querySelectorAll(".voteBtn");
+          voteBtns.forEach(btn => btn.setAttribute("disabled", ""));
+        } else {
+          showTask('Inget att rösta på');
+          const voteBtns = document.querySelectorAll(".voteBtn");
+          voteBtns.forEach(btn => btn.setAttribute("disabled", ""));
+
+          const SPmessage: HTMLElement = document.querySelector("#averageSP") as HTMLElement;
+          SPmessage.innerHTML = "";
+        }
       }
-    })
+    });
+    
     socket.emit('userLoggedIn', JSON.parse(sessionStorage.getItem("user") || ""));
   } else {
     printLogin();
     showTask('Inget att rösta på just nu');
   }
+
+console.log("checkLogin");
+
 }
+
+socket.on('sessionEnded', function(){
+  checkLogin()
+  printUser()
+});
 
 const init = () => {
   renderHeader();

@@ -1,5 +1,4 @@
 import { socket } from './sockets';
-
 export function renderAdmin(tasksArr: string[]){
   const adminContainer: HTMLElement = document.getElementById('adminContainer') as HTMLElement;
   const user = JSON.parse(sessionStorage.getItem('user') || "");
@@ -30,12 +29,16 @@ export function renderAdmin(tasksArr: string[]){
     const finishBtn = document.getElementById('finishBtn');
   
     if (finishAndSaveBtn) {
-      finishAndSaveBtn.addEventListener('click', endSessionAndSave);
+      finishAndSaveBtn.addEventListener('click', function() {
+        socket.emit('endSessionAndSaveBack');
+      });
     }
 
     if (finishBtn) {
-      finishBtn.addEventListener('click', endSession);
-    }
+      finishBtn.addEventListener('click', function () {
+        socket.emit('endSessionBack');
+    });
+  };
 
     taskInput.addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
@@ -56,13 +59,6 @@ export function renderAdmin(tasksArr: string[]){
   }
 }
 
-function endSession() {
-  socket.emit('endSessionBack');
-}
-
-function endSessionAndSave() {
-  socket.emit('endSessionAndSaveBack');
-}
 
 export function rendertasks(arr: string[]){
   const tasksList: HTMLElement = document.getElementById('tasksList') as HTMLElement;

@@ -144,25 +144,6 @@ io.on('connection', (socket) => {
     io.emit('finishedTasks', finishedTasks);
   });
 
-  // socket.on('endSessionAndSaveBack', () => {
-  //   let oldTasks = finishedTasks.slice();
-  //   console.log("Backend");
-  //   console.log(oldTasks)
-  //   db.collection('tasks').insertOne({ oldTasks }, function(err, result) {
-  //     if (err) {
-  //       console.log(err);
-  //       return;
-  //     }
-  //     console.log("Inserted document into the collection");
-  //     tasksArr = [];
-  //     finishedTasks = [];
-  //     currentVotes = [];
-  //     console.log("Cleared finishedTasks array");
-  //     currentTask = "inget att rösta på just nu"
-  //     io.emit('loadSite', tasksArr, finishedTasks);
-  //   });
-  // });
-
   socket.on('endSessionAndSaveBack', () => {
     let oldTasks = finishedTasks.slice();
     console.log("Backend");
@@ -172,34 +153,53 @@ io.on('connection', (socket) => {
         console.log(err);
         return;
       }
-      console.log(`Skickade in ${oldTasks.length} tasks i databasen`);
+      console.log("Inserted document into the collection");
       tasksArr = [];
       finishedTasks = [];
       currentVotes = [];
+      currentTask = "";
+      activeUsers.forEach((user) => {
+        user.hasVoted = false;
+      });
       console.log("Cleared finishedTasks array");
       io.emit('loadSite', tasksArr, finishedTasks);
+      io.emit('sessionEnded');
     });
   });
+  
+  socket.on('endSessionBack', () => {
+    let oldTasks = finishedTasks.slice();
+    console.log("Backend");
+    console.log(oldTasks)
+    tasksArr = [];
+    finishedTasks = [];
+    currentVotes = [];
+    currentTask = "";
+    activeUsers.forEach((user) => {
+      user.hasVoted = false;
+      user.vote = "";
+    });
+    console.log(activeUsers);
 
-socket.on('endSessionBack', () => {
-  let oldTasks = finishedTasks.slice();
-  console.log("Backend");
-  console.log(oldTasks)
-  tasksArr = [];
-  finishedTasks = [];
-  currentVotes = [];
-  console.log("Cleared finishedTasks array");
-  currentTask = null;
-  io.emit('loadSite', tasksArr, finishedTasks);
-});
+    console.log("Cleared finishedTasks array");
+    io.emit('loadSite', tasksArr, finishedTasks);
+    io.emit('sessionEnded');
+  });
+  
+  
 
-io.on('disconnect', () => {
-  const userId = socket.userId;
-  console.log('user ${socket.id} disconnected');
-  if (userId) {
-    io.emit('userLoggedOut', userId);
-  }
-});
+// socket.on('triggerShowTasks', function() {
+//   showTask();
+// });
+
+
+  io.on('disconnect', () => {
+    const userId = socket.userId;
+    console.log('user ${socket.id} disconnected');
+    if (userId) {
+      io.emit('userLoggedOut', userId);
+    }
+  });
 });
 
 module.exports = { app: app, server: server };
