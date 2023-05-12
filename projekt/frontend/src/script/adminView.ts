@@ -31,12 +31,14 @@ export function renderAdmin(tasksArr: string[]){
     if (finishAndSaveBtn) {
       finishAndSaveBtn.addEventListener('click', function() {
         socket.emit('endSessionAndSaveBack');
+        alert("The tasks have been saved, goodbye!");
       });
     }
 
     if (finishBtn) {
       finishBtn.addEventListener('click', function () {
         socket.emit('endSessionBack');
+        alert("The tasks have NOT been saved, goodbye!");
     });
   };
 
@@ -121,7 +123,6 @@ export function renderPoints(arr: string[], chosenTask: string){
       btn.addEventListener('click', (e: Event) => {
         if (e.target instanceof HTMLElement) {
         const points: string = e.target.innerHTML;
-        console.log(points);
         socket.emit('finishedTasks', {'points': points, 'task': chosenTask});
         
         renderAdmin(arr);

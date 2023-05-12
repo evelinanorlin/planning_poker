@@ -16,7 +16,6 @@ app.innerHTML = `
   <footer id='footer' class='footer'><p>&copy; IVAR Medieinstitutet 2023</p> </footer>`;
 
 export function checkLogin() {
-  console.log('check')
   if (sessionStorage.getItem("user")) {
     printUser();
 
@@ -47,7 +46,6 @@ export function checkLogin() {
     socket.emit('userLoggedIn', JSON.parse(sessionStorage.getItem("user") || ""));
   } else {
     printLogin();
-    showTask('Inget att rösta på just nu');
   }
 }
 

@@ -38,7 +38,7 @@ export function printLogin() {
           <button>Skapa</button>
         </form>
       </div> 
-      <img class="login-img" alt="gamecards" src="/public/poker-hand-svgrepo-com.svg"/>
+      <img class="login-img" alt="en byrå vid namn Ivar" src="/sideboard-svgrepo-com-blk.svg"/>
     </div>
     </div>
   `;
