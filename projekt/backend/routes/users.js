@@ -17,8 +17,6 @@ router.post('/', async (req, res, next) => {
 
 // SKAPA USER
 router.post('/add', async (req, res, next) => {
-  console.log(req.body);
-
   try {
     const user = new UserModel(req.body);
     let encryptPassword = req.body.password;

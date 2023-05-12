@@ -126,7 +126,6 @@ io.on('connection', (socket) => {
       io.emit('userVoted', activeUsers);
       io.emit('voteOver', currentVotes, tasksArr, currentTask, activeUsers);
     } else {
-      console.log(currentVotes);
       io.emit('userVoted', activeUsers);
     }
   });
