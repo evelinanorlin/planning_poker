@@ -82,6 +82,11 @@ io.on('connection', (socket) => {
       activeUsers.splice(index, 1);
       io.emit('activeUsersUpdated', activeUsers);
     }
+
+    if (currentVotes.length === activeUsers.length) {
+      io.emit('userVoted', activeUsers);
+      io.emit('voteOver', currentVotes, tasksArr, currentTask, activeUsers);
+    }
   });
 
   socket.on('loadSite', (arg) => {
@@ -133,7 +138,7 @@ io.on('connection', (socket) => {
 
   socket.on('endSessionAndSaveBack', () => {
     let oldTasks = finishedTasks.slice();
-    db.collection('tasks').insertOne({ oldTasks }, function(err, result) {
+    db.collection('tasks').insertOne({ oldTasks }, function (err, result) {
       if (err) {
         console.log(err);
         return;
@@ -141,7 +146,7 @@ io.on('connection', (socket) => {
       tasksArr = [];
       finishedTasks = [];
       currentVotes = [];
-      currentTask = "";
+      currentTask = '';
       activeUsers.forEach((user) => {
         user.hasVoted = false;
       });
@@ -149,16 +154,16 @@ io.on('connection', (socket) => {
       io.emit('sessionEnded', activeUsers);
     });
   });
-  
+
   socket.on('endSessionBack', () => {
     let oldTasks = finishedTasks.slice();
     tasksArr = [];
     finishedTasks = [];
     currentVotes = [];
-    currentTask = "";
+    currentTask = '';
     activeUsers.forEach((user) => {
       user.hasVoted = false;
-      user.vote = "";
+      user.vote = '';
     });
     io.emit('loadSite', tasksArr, finishedTasks);
     io.emit('sessionEnded', activeUsers);
