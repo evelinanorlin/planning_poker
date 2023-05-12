@@ -31,12 +31,14 @@ export function renderAdmin(tasksArr: string[]){
     if (finishAndSaveBtn) {
       finishAndSaveBtn.addEventListener('click', function() {
         socket.emit('endSessionAndSaveBack');
+        alert("The tasks have been saved, goodbye!");
       });
     }
 
     if (finishBtn) {
       finishBtn.addEventListener('click', function () {
         socket.emit('endSessionBack');
+        alert("The tasks have NOT been saved, goodbye!");
     });
   };
 
